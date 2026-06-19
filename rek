@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Реклама — внешние размещения</title>
+<style>
+:root{--bg:#F7F6F3;--surface:#fff;--surface2:#F0EEE9;--border:#E2DFD8;--border2:#CBC8C0;--text:#1A1916;--text2:#6B6860;--text3:#9B9890;--purple:#6C5CE7;--purple-l:#EEF0FF;--purple-t:#4A3FB5;--green:#00A86B;--green-l:#E6F7F1;--green-t:#006E46;--amber:#D97706;--amber-l:#FEF3C7;--amber-t:#92400E;--blue:#2563EB;--blue-l:#EFF6FF;--blue-t:#1E40AF;--teal:#0D9488;--teal-l:#CCFBF1;--teal-t:#0F766E;--red:#DC2626;--red-l:#FEF2F2;--red-t:#991B1B;--gray-l:#F3F2EF;--gray-t:#4B4A47;--r:12px;--rsm:8px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.45;overscroll-behavior:none}
+button{cursor:pointer;font-family:inherit;font-size:15px;border:none;background:none}
+.shell{display:flex;flex-direction:column;height:100dvh;max-width:430px;margin:0 auto;position:relative;overflow:hidden;background:var(--bg)}
+.hdr{background:var(--surface);border-bottom:.5px solid var(--border);padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10}
+.hdr-title{font-size:17px;font-weight:600}
+.hdr-sub{font-size:12px;color:var(--text3)}
+.hdr-btn{background:var(--purple);color:#fff;border-radius:var(--rsm);padding:7px 13px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+.bottom-nav{position:relative;bottom:0;background:var(--surface);border-top:.5px solid var(--border);display:flex;z-index:100;flex-shrink:0;padding-bottom:env(safe-area-inset-bottom)}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 7px;color:var(--text3);font-size:10px;font-weight:500}
+.bnav-btn svg{width:22px;height:22px;stroke-width:1.8}
+.bnav-btn.on{color:var(--purple)}
+
+.page{display:none}.page.on{display:block}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 14px 0}
+.kpi-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r);padding:14px}
+.kpi-l{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.kpi-v{font-size:21px;font-weight:700;line-height:1;color:var(--text)}
+.kpi-s{font-size:11px;color:var(--text3);margin-top:4px}
+.up{color:var(--green)}
+.card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.card-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.badge{display:inline-flex;font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.bs{background:var(--gray-l);color:var(--gray-t)}.bt{background:var(--blue-l);color:var(--blue-t)}.bw{background:var(--amber-l);color:var(--amber-t)}.bb{background:var(--teal-l);color:var(--teal-t)}.bp{background:var(--purple-l);color:var(--purple-t)}.bg{background:var(--green-l);color:var(--green-t)}.br{background:var(--red-l);color:var(--red-t)}
+.frow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.flab{width:110px;font-size:12px;color:var(--text2);flex-shrink:0}
+.ftrack{flex:1;height:14px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.ffill{height:100%;border-radius:3px}
+.fnum{width:20px;text-align:right;font-size:12px;font-weight:700;flex-shrink:0}
+.mgr-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:.5px solid var(--border)}
+.mgr-row:last-child{border-bottom:none}
+.avi{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.av-a{background:#EEF0FF;color:#4A3FB5}.av-b{background:#CCFBF1;color:#0F766E}
+.mname{font-size:13px;font-weight:600}.mdeals{font-size:11px;color:var(--text3)}
+.mstats{display:flex;gap:14px}
+.sval{font-size:13px;font-weight:700;text-align:right}.slbl{font-size:10px;color:var(--text3);text-align:right}
+.cpv-g{color:var(--green)}.cpv-m{color:var(--amber)}.cpv-b{color:var(--red)}
+.pills{display:flex;gap:6px;overflow-x:auto;padding:12px 14px 8px;scrollbar-width:none;flex-shrink:0}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex-shrink:0;padding:6px 13px;border-radius:99px;border:.5px solid var(--border2);font-size:12px;font-weight:500;color:var(--text2);white-space:nowrap}
+.pill.on{background:var(--purple-l);color:var(--purple-t);border-color:#C5BCFF}
+.deal-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r);padding:13px 14px;margin:0 14px 10px;cursor:pointer}
+.deal-card:active{border-color:var(--purple);background:var(--purple-l)}
+.dc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.dc-name{font-size:14px;font-weight:600}
+.dc-plat{font-size:11px;color:var(--text3);margin-top:1px}
+.dc-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dc-sum{font-size:13px;font-weight:600}.dc-mgr{font-size:11px;color:var(--text3)}.dc-cpv{font-size:12px;font-weight:600}
+.b-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px}
+.b-card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--r);padding:13px}
+.b-name{font-size:13px;font-weight:600;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.b-plat{font-size:11px;color:var(--text3);margin-bottom:9px}
+.b-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px}
+.b-l{color:var(--text3)}.b-v{font-weight:600}
+.bud-item{border-bottom:.5px solid var(--border);padding:12px 0}
+.bud-item:last-child{border-bottom:none}
+.bud-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.bud-name{font-size:13px;font-weight:600}.bud-sum{font-size:14px;font-weight:700}
+.bud-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.bud-pay{font-size:11px;color:var(--text3)}.bud-tax{font-size:11px;color:var(--amber)}
+.tg-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:11px;border-bottom:.5px solid #C3D9F5}
+.tg-icon{width:36px;height:36px;background:#2AABEE;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0}
+.tg-wrap{background:#EEF6FF;border:.5px solid #C3D9F5;border-radius:var(--r);padding:14px;font-size:12px;line-height:1.7;white-space:pre-wrap;color:#1A2B3C;margin-bottom:12px}
+.step{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.step-n{background:var(--purple-l);color:var(--purple-t);border-radius:6px;padding:2px 7px;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-t{font-size:13px;color:var(--text2);line-height:1.5}
+.drawer-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:50;display:none}
+.drawer-overlay.open{display:block}
+.drawer{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-radius:18px 18px 0 0;z-index:51;transform:translateY(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);max-height:80dvh;display:flex;flex-direction:column}
+.drawer.open{transform:translateY(0)}
+.drawer-handle{width:48px;height:5px;background:var(--border2);border-radius:3px;margin:10px auto 4px}
+.drawer-hdr{padding:4px 16px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--border)}
+.drawer-title{font-size:16px;font-weight:600}
+.drawer-body{overflow-y:auto;padding:16px;flex:1}
+.drawer-actions{padding:12px 16px;border-top:.5px solid var(--border);display:flex;gap:8px;flex-shrink:0}
+.fg{margin-bottom:13px}
+.fl{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px;display:block}
+.fc{width:100%;height:44px;border:.5px solid var(--border2);border-radius:var(--rsm);padding:0 12px;font-size:15px;font-family:inherit;color:var(--text);background:var(--surface);outline:none;-webkit-appearance:none;appearance:none}
+.fc:focus{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-l)}
+.fg-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-p{background:var(--purple);color:#fff;border-radius:var(--rsm);padding:13px;font-size:15px;font-weight:600;flex:1;text-align:center;border:none;cursor:pointer}
+.btn-g{background:none;border:.5px solid var(--border2);color:var(--text2);border-radius:var(--rsm);padding:13px;font-size:15px;font-weight:500;cursor:pointer}
+.btn-danger{background:none;border:.5px solid var(--red-l);color:var(--red);border-radius:var(--rsm);padding:13px;font-size:15px;font-weight:500;cursor:pointer}
+.pf{margin-bottom:14px}
+.pfl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);margin-bottom:3px}
+.pfv{font-size:15px;color:var(--text)}
+.sep{height:.5px;background:var(--border);margin:14px 0}
+.warn-box{background:var(--amber-l);border:.5px solid #FCD34D;border-radius:var(--rsm);padding:10px 12px;font-size:13px;color:var(--amber-t);margin-bottom:12px;display:none}
+.warn-box.show{display:block}
+.toast{position:absolute;bottom:76px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--text);color:#fff;padding:10px 18px;border-radius:99px;font-size:13px;font-weight:500;z-index:200;opacity:0;transition:all .2s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:14px}
+.contact-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px}
+.contact-row:last-child{border-bottom:none}
+.contact-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.contact-lbl{font-size:11px;color:var(--text3);min-width:60px}
+.contact-val{color:var(--text);flex:1}
+.delivery-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:4px 10px;border-radius:8px;margin-top:6px}
+.del-ozon{background:#EEF0FF;color:#4A3FB5}
+.del-wb{background:#F9ECFF;color:#7B2D8B}
+.del-sdek{background:#E6F7F1;color:#006E46}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="shell">
+
+<div class="hdr">
+  <div>
+    <div class="hdr-title" id="hdr-title">Дашборд</div>
+    <div class="hdr-sub">Июнь 2026 · 2 менеджера</div>
+  </div>
+  <button class="hdr-btn" onclick="openNew()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+    Сделка
+  </button>
+</div>
+
+<div class="scroll" id="scroll">
+
+  <!-- DASHBOARD -->
+  <div id="page-dash" class="page on">
+    <div style="padding:0 14px 0;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:10px">
+      <div style="font-size:11px;font-weight:600;color:var(--text3);white-space:nowrap">Период:</div>
+      <div id="dash-month-pills" style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;"></div>
+    </div>
+    <div class="kpi-grid" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="kpi-card"><div class="kpi-l">В работе</div><div class="kpi-v" id="k-total">—</div><div class="kpi-s"><span class="up">↑ 4</span> за неделю</div></div>
+      <div class="kpi-card"><div class="kpi-l">Потрачено</div><div class="kpi-v" id="k-spent">—</div><div class="kpi-s">оплачено + размещено</div></div>
+      <div class="kpi-card"><div class="kpi-l">Размещено</div><div class="kpi-v" id="k-placed">—</div><div class="kpi-s"><span class="up">↑ 3</span> за неделю</div></div>
+      <div class="kpi-card"><div class="kpi-l">CPV по охвату</div><div class="kpi-v" id="k-cpv">—</div><div class="kpi-s">сумма ÷ ср. охват</div></div>
+      <div class="kpi-card"><div class="kpi-l">CPV по просмотрам</div><div class="kpi-v" id="k-cpv2">—</div><div class="kpi-s">сумма ÷ просмотры факт</div></div>
+    </div>
+    <div style="padding:14px">
+      <div class="card"><div class="card-title">Воронка</div><div id="funnel"></div></div>
+      <div class="card"><div class="card-title">Менеджеры</div><div id="mgr-block"></div></div>
+    </div>
+    <div class="card-title" style="padding:0 14px 8px">Последние сделки</div>
+    <div id="recent-list"></div>
+    <div style="height:14px"></div>
+  </div>
+
+  <!-- DEALS -->
+  <div id="page-deals" class="page" style="padding:0">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px 0">
+      <div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Месяц</div>
+    </div>
+    <div class="pills" id="month-pills" style="padding:6px 14px 0"></div>
+    <div class="pills" id="deal-pills">
+      <button class="pill on" onclick="setDF('all',this)">Все</button>
+      <button class="pill" onclick="setDF('Поиск',this)">Поиск</button>
+      <button class="pill" onclick="setDF('Переговоры',this)">Переговоры</button>
+      <button class="pill" onclick="setDF('Ожидает оплаты',this)">Ждёт оплаты</button>
+      <button class="pill" onclick="setDF('Бартер',this)">Бартер</button>
+      <button class="pill" onclick="setDF('Оплачено',this)">Оплачено</button>
+      <button class="pill" onclick="setDF('Размещено',this)">Размещено</button>
+      <button class="pill" onclick="setDF('Отказ',this)">Отказ</button>
+    </div>
+    <div id="deals-list"></div>
+  </div>
+
+  <!-- BLOGGERS -->
+  <div id="page-bloggers" class="page" style="padding:0">
+    <div class="pills" id="blog-pills">
+      <button class="pill on" onclick="setBF('all',this)">Все</button>
+      <button class="pill" onclick="setBF('Instagram',this)">Instagram</button>
+      <button class="pill" onclick="setBF('Likee',this)">Likee</button>
+      <button class="pill" onclick="setBF('TikTok',this)">TikTok</button>
+      <button class="pill" onclick="setBF('Несколько',this)">Несколько</button>
+      <button class="pill" onclick="setBF('__refused__',this)" style="border-color:var(--red-l);color:var(--red-t)">Не сложилось</button>
+    </div>
+    <div class="b-grid" id="blogger-grid"></div>
+    <div style="height:14px"></div>
+  </div>
+
+  <!-- BUDGET -->
+  <div id="page-budget" class="page" style="padding:0 14px">
+    <!-- Budget plan input -->
+    <div style="padding:14px 0 0">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-title">Бюджет на месяц</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <input class="fc" id="budget-plan" type="number" placeholder="500 000" inputmode="numeric" style="flex:1;height:44px;font-size:16px;font-weight:600" oninput="saveBudgetPlan();renderBudget()">
+          <span style="font-size:15px;color:var(--text2);flex-shrink:0">₽</span>
+        </div>
+        <!-- Progress bar -->
+        <div id="budget-progress-wrap" style="display:none">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-bottom:6px">
+            <span>Использовано</span>
+            <span id="budget-pct" style="font-weight:600"></span>
+          </div>
+          <div style="height:10px;background:var(--surface2);border-radius:5px;overflow:hidden">
+            <div id="budget-bar" style="height:100%;border-radius:5px;transition:width .4s ease"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:5px">
+            <span id="budget-spent-lbl"></span>
+            <span id="budget-remain-lbl"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kpi-grid" style="grid-template-columns:1fr 1fr;padding:12px 0 0">
+      <div class="kpi-card"><div class="kpi-l">Оплачено</div><div class="kpi-v" id="b-paid" style="font-size:18px">—</div></div>
+      <div class="kpi-card"><div class="kpi-l">Ожидает</div><div class="kpi-v" id="b-wait" style="font-size:18px;color:var(--amber)">—</div></div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="card"><div class="card-title">История оплат</div><div id="budget-list"></div></div>
+  </div>
+
+  <!-- TELEGRAM -->
+  <div id="page-tg" class="page" style="padding:14px">
+    <div class="tg-hdr">
+      <div class="tg-icon">✈</div>
+      <div><div style="font-weight:600;font-size:14px">Реклама · Аналитика</div><div style="font-size:11px;color:var(--text3)">Отчёт каждый день в 09:00</div></div>
+    </div>
+    <div class="tg-wrap" id="tg-prev"></div>
+    <div class="card">
+      <div class="card-title">Как подключить бота</div>
+      <div class="step"><span class="step-n">1</span><span class="step-t">Создайте бота у <b>@BotFather</b> — получите токен</span></div>
+      <div class="step"><span class="step-n">2</span><span class="step-t">Добавьте бота в вашу группу как администратора</span></div>
+      <div class="step"><span class="step-n">3</span><span class="step-t">Вставьте токен в файл <code style="background:var(--surface2);padding:1px 5px;border-radius:4px">telegram_bot.py</code></span></div>
+      <div class="step"><span class="step-n">4</span><span class="step-t">Запустите: <code style="background:var(--surface2);padding:1px 5px;border-radius:4px">python telegram_bot.py</code></span></div>
+      <div class="step"><span class="step-n">5</span><span class="step-t">Напишите <code style="background:var(--surface2);padding:1px 5px;border-radius:4px">/stats</code> в группе — бот ответит</span></div>
+      <div style="background:var(--amber-l);border-radius:var(--rsm);padding:10px 12px;font-size:12px;color:var(--amber-t);margin-top:4px">💡 Отчёт формируется из ваших данных автоматически каждое утро</div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="page-settings" class="page" style="padding:14px">
+
+    <!-- Менеджеры -->
+    <div class="card">
+      <div class="card-title">👤 Менеджеры</div>
+      <div id="s-mgr-list"></div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <input class="fc" id="s-mgr-input" placeholder="Имя менеджера" style="flex:1;height:40px">
+        <button onclick="sAdd('mgr')" style="background:var(--purple);color:#fff;border-radius:var(--rsm);padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap">+ Добавить</button>
+      </div>
+    </div>
+
+    <!-- Продукты -->
+    <div class="card">
+      <div class="card-title">📦 Продукты</div>
+      <div id="s-prod-list"></div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <input class="fc" id="s-prod-input" placeholder="Название продукта" style="flex:1;height:40px">
+        <button onclick="sAdd('prod')" style="background:var(--purple);color:#fff;border-radius:var(--rsm);padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap">+ Добавить</button>
+      </div>
+    </div>
+
+    <!-- Платформы -->
+    <div class="card">
+      <div class="card-title">📱 Платформы</div>
+      <div id="s-plat-list"></div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <input class="fc" id="s-plat-input" placeholder="Название платформы" style="flex:1;height:40px">
+        <button onclick="sAdd('plat')" style="background:var(--purple);color:#fff;border-radius:var(--rsm);padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap">+ Добавить</button>
+      </div>
+    </div>
+
+    <!-- Типы оплаты -->
+    <div class="card">
+      <div class="card-title">💳 Типы оплаты</div>
+      <div id="s-pay-list"></div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <input class="fc" id="s-pay-input" placeholder="Тип оплаты" style="flex:1;height:40px">
+        <button onclick="sAdd('pay')" style="background:var(--purple);color:#fff;border-radius:var(--rsm);padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap">+ Добавить</button>
+      </div>
+    </div>
+
+    <!-- Способы доставки -->
+    <div class="card">
+      <div class="card-title">🚚 Способы доставки</div>
+      <div id="s-del-list"></div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <input class="fc" id="s-del-input" placeholder="Способ доставки" style="flex:1;height:40px">
+        <button onclick="sAdd('del')" style="background:var(--purple);color:#fff;border-radius:var(--rsm);padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap">+ Добавить</button>
+      </div>
+    </div>
+
+    <!-- Статусы (только просмотр) -->
+    <div class="card">
+      <div class="card-title">🏷 Статусы сделок</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="badge bs">Поиск</span>
+        <span class="badge bt">Переговоры</span>
+        <span class="badge bw">Ожидает оплаты</span>
+        <span class="badge bb">Бартер</span>
+        <span class="badge bp">Оплачено</span>
+        <span class="badge bg">Размещено</span>
+        <span class="badge br">Отказ</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:10px">Статусы фиксированы — они определяют логику воронки и отчётов</div>
+    </div>
+
+
+    <!-- Импорт из Excel -->
+    <div class="card" style="border-color:#C5BCFF">
+      <div class="card-title" style="color:var(--purple)">📥 Импорт из Excel</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.6">
+        Загрузите файл <b>Внешняя_реклама_маркетплейсы.xlsx</b> — данные из листов «Сделки» и «База блогеров» добавятся в приложение автоматически.
+      </div>
+      <label style="display:block;background:var(--purple-l);color:var(--purple-t);border-radius:var(--rsm);padding:12px;font-size:14px;font-weight:600;text-align:center;cursor:pointer">
+        📂 Выбрать файл Excel
+        <input type="file" id="import-file" accept=".xlsx,.xls" style="display:none" onchange="importExcel(this)">
+      </label>
+      <div id="import-status" style="margin-top:10px;font-size:12px;color:var(--text3);text-align:center;display:none"></div>
+    </div>
+
+    <!-- Сброс данных -->
+    <div class="card" style="border-color:var(--red-l)">
+      <div class="card-title" style="color:var(--red)">⚠️ Данные</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:12px">Сбросить все сделки и вернуть демо-данные. Настройки (менеджеры, продукты) сохранятся.</div>
+      <button onclick="resetDeals()" style="background:var(--red-l);color:var(--red-t);border:none;border-radius:var(--rsm);padding:10px 16px;font-size:13px;font-weight:600;width:100%">Сбросить сделки к демо</button>
+    </div>
+
+    <div style="height:8px"></div>
+  </div>
+
+</div>
+
+<nav class="bottom-nav">
+  <button class="bnav-btn on" onclick="go('dash',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    Дашборд
+  </button>
+  <button class="bnav-btn" onclick="go('deals',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+    Сделки
+  </button>
+  <button class="bnav-btn" onclick="go('bloggers',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    Блогеры
+  </button>
+  <button class="bnav-btn" onclick="go('budget',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>
+    Бюджет
+  </button>
+  <button class="bnav-btn" onclick="go('tg',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21.5 2L2 10.5l7 2.5M21.5 2L13.5 22l-4.5-9M21.5 2l-8 9.5"/></svg>
+    Бот
+  </button>
+  <button class="bnav-btn" onclick="go('settings',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    Настройки
+  </button>
+</nav>
+
+<!-- NEW DEAL DRAWER -->
+<div class="drawer-overlay" id="new-ov" onclick="closeNew()"></div>
+<div class="drawer" id="new-dr">
+  <div class="drawer-handle" onclick="closeNew()" style="cursor:pointer;padding:8px 0"></div>
+  <div class="drawer-hdr"><div class="drawer-title">Новая сделка</div><button onclick="closeNew()" style="color:var(--text3);font-size:22px;line-height:1">×</button></div>
+  <div class="drawer-body">
+    <div class="warn-box" id="dup-warn">⚠️ Такой блогер уже есть в базе! Проверьте список сделок.</div>
+    <div class="fg"><label class="fl">Блогер / площадка *</label><input class="fc" id="f-b" placeholder="@username или название" oninput="checkDup()"></div>
+    <div class="fg-2">
+      <div class="fg"><label class="fl">Платформа</label><select class="fc" id="f-pl"><option>Instagram</option><option>Likee</option><option>TikTok</option><option>YouTube</option><option>Telegram</option><option>Несколько</option><option>Другое</option></select></div>
+      <div class="fg"><label class="fl">Менеджер</label><select class="fc" id="f-m"><option>Анна Ш.</option><option>Елизавета М.</option></select></div>
+    </div>
+    <div class="fg-2">
+      <div class="fg"><label class="fl">Продукт</label><select class="fc" id="f-pr"><option>Лейка ароматическая</option><option>Набор + гель для душа</option><option>Гель для душа</option><option>Набор для умывания</option></select></div>
+      <div class="fg"><label class="fl">Статус</label><select class="fc" id="f-st"><option>Поиск</option><option>Переговоры</option><option>Ожидает оплаты</option><option>Бартер</option><option>Оплачено</option><option>Размещено</option><option>Отказ</option></select></div>
+    </div>
+    <div class="fg-2">
+      <div class="fg"><label class="fl">Сумма, ₽</label><input class="fc" id="f-s" type="number" placeholder="0" inputmode="numeric"></div>
+      <div class="fg"><label class="fl">Тип оплаты</label><select class="fc" id="f-py"><option>Бартер</option><option>Счёт/самозанятый</option><option>Карта физлица</option><option>Расчётный счёт</option></select></div>
+    </div>
+    <div class="fg-2">
+      <div class="fg"><label class="fl">Ср. охват</label><input class="fc" id="f-reach" type="number" placeholder="10000" inputmode="numeric"></div>
+      <div class="fg"><label class="fl">Дата выхода</label><input class="fc" id="f-dt" type="date"></div>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;margin-top:4px;text-transform:uppercase;letter-spacing:.04em">Контакт блогера</div>
+    <div class="fg-2">
+      <div class="fg"><label class="fl">Тип контакта</label><select class="fc" id="f-ctype"><option value="tg">📱 Telegram</option><option value="wa">💬 WhatsApp</option><option value="ph">📞 Телефон</option><option value="em">✉️ Email</option><option value="sn">🔗 В соц. сети</option></select></div>
+      <div class="fg"><label class="fl">Контакт</label><input class="fc" id="f-cval" placeholder="@username / +7..."></div>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;margin-top:4px;text-transform:uppercase;letter-spacing:.04em">Доставка товара</div>
+    <div class="fg"><label class="fl">Способ доставки</label><select class="fc" id="f-del"><option value="">— не выбрано —</option><option value="ozon">Заказ с OZON за 1 ₽</option><option value="wb">Заказ с WB за полную стоимость</option><option value="sdek">Доставка по адресу (СДЭК)</option></select></div>
+    <div class="fg" id="f-addr-wrap" style="display:none"><label class="fl">Адрес доставки</label><input class="fc" id="f-addr" placeholder="Город, улица, дом, кв."></div>
+
+    <div class="fg"><label class="fl">Ссылка на профиль</label><input class="fc" id="f-l" placeholder="https://..."></div>
+    <div class="fg"><label class="fl">Комментарий</label><input class="fc" id="f-c" placeholder="Условия, особенности..."></div>
+  </div>
+  <div class="drawer-actions">
+    <button class="btn-g" onclick="closeNew()">Отмена</button>
+    <button class="btn-p" onclick="saveDeal()">Сохранить</button>
+  </div>
+</div>
+
+<!-- DETAIL DRAWER -->
+<div class="drawer-overlay" id="det-ov" onclick="closeDet()"></div>
+<div class="drawer" id="det-dr">
+  <div class="drawer-handle" onclick="closeDet()" style="cursor:pointer;padding:8px 0"></div>
+  <div class="drawer-hdr">
+    <div><div class="drawer-title" id="det-name"></div><div style="font-size:12px;color:var(--text3);margin-top:1px" id="det-plat"></div></div>
+    <button onclick="closeDet()" style="color:var(--text3);font-size:22px;line-height:1">×</button>
+  </div>
+  <div class="drawer-body" id="det-body"></div>
+  <div class="drawer-actions">
+    <button class="btn-danger" onclick="deleteDeal()">Удалить</button>
+    <button class="btn-p" onclick="closeDet()">Готово</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const SC={Поиск:'bs',Переговоры:'bt','Ожидает оплаты':'bw',Бартер:'bb',Оплачено:'bp',Размещено:'bg',Отказ:'br'};
+const FC={Поиск:'#B4B2A9',Переговоры:'#85B7EB','Ожидает оплаты':'#EF9F27',Бартер:'#5DCAA5',Оплачено:'#AFA9EC',Размещено:'#97C459',Отказ:'#F09595'};
+const TITLES={dash:'Дашборд',deals:'Сделки',bloggers:'Блогеры',budget:'Бюджет',tg:'Telegram-бот',settings:'Настройки'};
+const MONTHS_RU=['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const DEL_LABELS={ozon:'Заказ с OZON за 1 ₽',wb:'Заказ с WB за полн. ст.',sdek:'Доставка СДЭК'};
+const DEL_CLASS={ozon:'del-ozon',wb:'del-wb',sdek:'del-sdek'};
+const DEL_ICON={ozon:'🟠',wb:'🟣',sdek:'🟢'};
+const MGRS=['Анна Ш.','Елизавета М.'];
+const AV_CLS=['av-a','av-b'];
+const AV_INI=['АШ','ЕМ'];
+
+// Delivery address toggle
+document.getElementById('f-del').addEventListener('change',function(){
+  document.getElementById('f-addr-wrap').style.display=this.value==='sdek'?'block':'none';
+});
+
+const INIT_DEALS=[{"b":"drabpeace","pl":"Likee","m":"","pr":"Набор + гель для душа","s":20000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-05-27","l":"https://l.likee.video/v/TjSByk","c":"","ctype":"","cval":"","del":"","addr":"","id":1000},{"b":"anelinkaoffi","pl":"Likee","m":"","pr":"Набор + гель для душа","s":13000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-06-01","l":"https://l.likee.video/p/o7HlWR","c":"","ctype":"","cval":"","del":"","addr":"","id":1001},{"b":"Ivanova___","pl":"Likee","m":"","pr":"Набор + гель для душа","s":4002,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-05-28","l":"https://l.likee.video/v/gdOKvv","c":"","ctype":"","cval":"","del":"","addr":"","id":1002},{"b":"alenk4_","pl":"Likee","m":"","pr":"Набор + гель для душа","s":0,"py":"Бартер","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-05-31","l":"https://l.likee.video/v/FySx82","c":"","ctype":"","cval":"","del":"","addr":"","id":1003},{"b":"ediks_off","pl":"Likee","m":"","pr":"Набор + гель для душа","s":15000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-06-04","l":"https://l.likee.video/v/nRIfSG","c":"","ctype":"","cval":"","del":"","addr":"","id":1004},{"b":"Anna_eva_nes","pl":"Likee","m":"","pr":"Набор + гель для душа","s":8000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-06-05","l":"https://l.likee.video/v/53OHpS","c":"","ctype":"","cval":"","del":"","addr":"","id":1005},{"b":"edoshka","pl":"Likee","m":"","pr":"Набор + гель для душа","s":8000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-06-05","l":"https://l.likee.video/v/zfNQEV","c":"","ctype":"","cval":"","del":"","addr":"","id":1006},{"b":"KATYA_LUPP1","pl":"Likee","m":"","pr":"Набор + гель для душа","s":3000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-06-08","l":"https://vt.tiktok.com/ZSQMnuupJ/","c":"","ctype":"","cval":"","del":"","addr":"","id":1007},{"b":"AliceVLO","pl":"Likee","m":"","pr":"Набор + гель для душа","s":6000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-06-10","l":"https://l.likee.video/v/QsFram","c":"","ctype":"","cval":"","del":"","addr":"","id":1008},{"b":"Tori.As","pl":"Likee","m":"","pr":"Набор + гель для душа","s":12000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1009},{"b":"klime.beauty","pl":"Likee","m":"","pr":"Набор + гель для душа","s":0,"py":"Бартер","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2026-06-12","l":"https://vt.tiktok.com/ZSQamu7bT/","c":"","ctype":"","cval":"","del":"","addr":"","id":1010},{"b":"elenasidorova1982","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":1500,"py":"Карта физлица","st":"Размещено","reach":2500,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/elenasidorova1982?igsh=MWt2ZXpubXhsNHQ1bQ==","c":"","ctype":"","cval":"","del":"","addr":"","id":1011},{"b":"Iren_obzor","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":2500,"py":"Карта физлица","st":"Размещено","reach":2500,"v":null,"sl":null,"dt":null,"l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1012},{"b":"maria_tru_","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":2500,"py":"Карта физлица","st":"Размещено","reach":4200,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/maria_tru_?igsh=MWVseTloaHVwYmdrdw==","c":"","ctype":"","cval":"","del":"","addr":"","id":1013},{"b":"ai.sellia","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":3000,"py":"Карта физлица","st":"Размещено","reach":10500,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/ai.sellia?igsh=Y2JleWRndHM0a3Zi","c":"","ctype":"","cval":"","del":"","addr":"","id":1014},{"b":"anna__pokhodenko","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":3000,"py":"Карта физлица","st":"Размещено","reach":7000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/anna__pokhodenko?igsh=MXFkMDN4a3FuOTJ2bQ==","c":"","ctype":"","cval":"","del":"","addr":"","id":1015},{"b":"motherinka","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":3500,"py":"Карта физлица","st":"Размещено","reach":3500,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/motherinka?igsh=ZjQ4b3pjdzl4OHh6","c":"","ctype":"","cval":"","del":"","addr":"","id":1016},{"b":"missis_home_","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4000,"py":"Карта физлица","st":"Размещено","reach":3300,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/missis_home_?igsh=OHdncWljdmhwZnJx","c":"","ctype":"","cval":"","del":"","addr":"","id":1017},{"b":"mapasssions","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4000,"py":"Карта физлица","st":"Размещено","reach":13300,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/mapasssions?igsh=djRlanhicTZ0MTVu","c":"","ctype":"","cval":"","del":"","addr":"","id":1018},{"b":"anastasia.decor_","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4500,"py":"Карта физлица","st":"Размещено","reach":3500,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/anastasia.decor_?igsh=MXJ3ZDF4N3Boa2pidQ==","c":"","ctype":"","cval":"","del":"","addr":"","id":1019},{"b":"efa_kris","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":5000,"py":"Карта физлица","st":"Размещено","reach":8000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/efa_kris?igsh=N3Vrc2V1cGhla3A5","c":"","ctype":"","cval":"","del":"","addr":"","id":1020},{"b":"wb_new_idea","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":5000,"py":"Карта физлица","st":"Размещено","reach":12000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/wb_new_idea?igsh=MW50cXZuaWpudHJoYw==","c":"","ctype":"","cval":"","del":"","addr":"","id":1021},{"b":"natallie.pol","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":5000,"py":"Карта физлица","st":"Размещено","reach":11000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/natallie.pol?igsh=MWMydDYwYXl4YzA2Zw==","c":"","ctype":"","cval":"","del":"","addr":"","id":1022},{"b":"alena.shopogolik","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":5000,"py":"Карта физлица","st":"Размещено","reach":5600,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/alena.shopogolik?igsh=NTY5ajByeWx2a2Jh","c":"","ctype":"","cval":"","del":"","addr":"","id":1023},{"b":"butynebuty","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":8000,"py":"Карта физлица","st":"Размещено","reach":17000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/butynebuty?igsh=MTVuZnV0ZXUxZDlhbg==","c":"","ctype":"","cval":"","del":"","addr":"","id":1024},{"b":"elizabeth.shibaeva","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":6000,"py":"Карта физлица","st":"Размещено","reach":45000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/elizabeth.shibaeva?igsh=eHhjazZsbTlvaWhw","c":"","ctype":"","cval":"","del":"","addr":"","id":1025},{"b":"lesyaacare","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":6500,"py":"Карта физлица","st":"Размещено","reach":24000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/lesyaacare?igsh=ZjVsZHByMzFmM2o2","c":"","ctype":"","cval":"","del":"","addr":"","id":1026},{"b":"milenahsanova","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":7000,"py":"Карта физлица","st":"Размещено","reach":10000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/milenahsanova?igsh=MXBydnZ3cHRlOWhyNw==","c":"","ctype":"","cval":"","del":"","addr":"","id":1027},{"b":"elizaveta_ma","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":8500,"py":"Карта физлица","st":"Размещено","reach":6200,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/elizaveta_ma?igsh=aDJ0bXVvbTljcTJz","c":"","ctype":"","cval":"","del":"","addr":"","id":1028},{"b":"rogacheva.darya","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":9000,"py":"Карта физлица","st":"Размещено","reach":6700,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/rogacheva.darya?igsh=bGM4YzBjM25uOHhh","c":"","ctype":"","cval":"","del":"","addr":"","id":1029},{"b":"ksenia.hmelevskaya","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":9000,"py":"Карта физлица","st":"Размещено","reach":25000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/ksenia.hmelevskaya?igsh=b2htdThwZGg0eWlu","c":"","ctype":"","cval":"","del":"","addr":"","id":1030},{"b":"marii_vision","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":10000,"py":"Карта физлица","st":"Размещено","reach":16800,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/marii_vision?igsh=ZXhveW53bndoYzBl","c":"","ctype":"","cval":"","del":"","addr":"","id":1031},{"b":"karinates_life","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":10000,"py":"Карта физлица","st":"Размещено","reach":20000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/karinates_life?igsh=Z2NoODV1MDgyZWo1","c":"","ctype":"","cval":"","del":"","addr":"","id":1032},{"b":"lukina_alyonaa","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":10000,"py":"Карта физлица","st":"Размещено","reach":10000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/lukina_alyonaa?igsh=cGFxcnJydjJvaXU=","c":"","ctype":"","cval":"","del":"","addr":"","id":1033},{"b":"kristina__homeblog","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":0,"py":"Карта физлица","st":"Размещено","reach":120000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/kristina__homeblog?igsh=MXdqeG50anR0dGdjMQ==","c":"","ctype":"","cval":"","del":"","addr":"","id":1034},{"b":"ylia_wb_obzor","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":12000,"py":"Карта физлица","st":"Размещено","reach":10800,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/ylia_wb_obzor?igsh=Z2JvaDhkaHV5Mmhn 12 тыс","c":"","ctype":"","cval":"","del":"","addr":"","id":1035},{"b":"muratova_pro","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":15000,"py":"Карта физлица","st":"Размещено","reach":15000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/muratova_pro?igsh=aTZheTF4b2xtZzZs","c":"","ctype":"","cval":"","del":"","addr":"","id":1036},{"b":"stroit__dreams","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":15000,"py":"Карта физлица","st":"Размещено","reach":10000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/stroit__dreams?igsh=YmgwOWs4dDF4cWJ0","c":"","ctype":"","cval":"","del":"","addr":"","id":1037},{"b":"svetlana.laivi","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":15000,"py":"Карта физлица","st":"Размещено","reach":10000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/svetlana.laivi?igsh=OHFpN3dyMG0yZjl4","c":"","ctype":"","cval":"","del":"","addr":"","id":1038},{"b":"smirnova98_","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":15000,"py":"Карта физлица","st":"Размещено","reach":18000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/smirnova98_?igsh=Znp4YnRla2phMjQy","c":"","ctype":"","cval":"","del":"","addr":"","id":1039},{"b":"julay_medvedeva","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":17000,"py":"Карта физлица","st":"Размещено","reach":35000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/julay_medvedeva?igsh=NnJjbHd5MnVoaWtw шортс 8тыс","c":"","ctype":"","cval":"","del":"","addr":"","id":1040},{"b":"svetlana__averkina","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":19000,"py":"Карта физлица","st":"Размещено","reach":10000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/svetlana__averkina?igsh=MWp2YTF2b211aXVqbA==","c":"","ctype":"","cval":"","del":"","addr":"","id":1041},{"b":"yanushaa_","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":30000,"py":"Карта физлица","st":"Размещено","reach":20000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/yanushaa_?igsh=cmgyYzQ4cWFpcHMx","c":"","ctype":"","cval":"","del":"","addr":"","id":1042},{"b":"moreremonta","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":30000,"py":"Карта физлица","st":"Размещено","reach":12000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/moreremonta?igsh=Y3h1YWJyODdwbWVn","c":"","ctype":"","cval":"","del":"","addr":"","id":1043},{"b":"nastya.dizzy","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":32000,"py":"Карта физлица","st":"Размещено","reach":25000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/nastya.dizzy?igsh=MWZ4YThvOXAxNjM2ZA==","c":"","ctype":"","cval":"","del":"","addr":"","id":1044},{"b":"mariprohorova","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":35000,"py":"Карта физлица","st":"Размещено","reach":10000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/mariprohorova?igsh=Z3Zmc3g3eDUwdzYx","c":"","ctype":"","cval":"","del":"","addr":"","id":1045},{"b":"kamilla__kasimova","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":40000,"py":"Карта физлица","st":"Размещено","reach":30000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/kamilla__kasimova?igsh=MW5jNWt4cG8yejFzbQ==","c":"","ctype":"","cval":"","del":"","addr":"","id":1046},{"b":"iremeip","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":40000,"py":"Карта физлица","st":"Размещено","reach":27000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/iremeip?igsh=cmJtbGRiMHJsN3Vn","c":"","ctype":"","cval":"","del":"","addr":"","id":1047},{"b":"muamarisha","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":50000,"py":"Карта физлица","st":"Размещено","reach":32000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/muamarisha?igsh=MWFtMXNyZW5nYXQ5bA==","c":"","ctype":"","cval":"","del":"","addr":"","id":1048},{"b":"katerina.kovalevskaiia_","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":230000,"py":"Карта физлица","st":"Размещено","reach":320000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/katerina.kovalevskaiia_?igsh=MXhwd2U4b21uNXVuYw== 230 тыс","c":"","ctype":"","cval":"","del":"","addr":"","id":1049},{"b":"_magnoliia_home","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":7000,"py":"Карта физлица","st":"Размещено","reach":12000,"v":null,"sl":null,"dt":null,"l":"https://www.instagram.com/_magnoliia_home?igsh=bnppYTd4ZHBpODd5 есть товар","c":"","ctype":"","cval":"","del":"","addr":"","id":1050},{"b":"Блоггер","pl":"Другое","m":"","pr":"Набор + гель для душа","s":0,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"Контент","ctype":"","cval":"","del":"","addr":"","id":1051},{"b":"Svetlana.laivi","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":10000,"py":"Карта физлица","st":"Размещено","reach":12000,"v":null,"sl":null,"dt":null,"l":"","c":"Рилс подборка (еще не вышел) 10.02","ctype":"","cval":"","del":"","addr":"","id":1052},{"b":"Vikki__decor","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4000,"py":"Карта физлица","st":"Размещено","reach":34000,"v":117000,"sl":null,"dt":null,"l":"https://www.instagram.com/reel/DUOInd6iEOg/?igsh=N2c3cHAzbGQ1eDBk","c":"Рилс подборка","ctype":"","cval":"","del":"","addr":"","id":1053},{"b":"iitugolukova","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":13000,"py":"Карта физлица","st":"Размещено","reach":111000,"v":null,"sl":null,"dt":null,"l":"","c":"Рилс и сторис (еще не вышел) 11.02","ctype":"","cval":"","del":"","addr":"","id":1054},{"b":"_irina_pro_wb_","pl":"Другое","m":"","pr":"Лейка ароматическая","s":13000,"py":"Карта физлица","st":"Размещено","reach":42900,"v":67800,"sl":null,"dt":null,"l":"https://www.instagram.com/reel/DUQP-BnjL8x/?igsh=MTQ2eXNjMDMxYTMxNw==","c":"Рилс","ctype":"","cval":"","del":"","addr":"","id":1055},{"b":"wb_obzorr__","pl":"Другое","m":"","pr":"Лейка ароматическая","s":6500,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"рилз 24.02","ctype":"","cval":"","del":"","addr":"","id":1056},{"b":"gulya_pro_wb","pl":"Другое","m":"","pr":"Лейка ароматическая","s":4000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"рилз 25.02","ctype":"","cval":"","del":"","addr":"","id":1057},{"b":"biblio diva","pl":"Другое","m":"","pr":"Лейка ароматическая","s":4000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"Рилс подборка  26.02","ctype":"","cval":"","del":"","addr":"","id":1058},{"b":"victoria_apolonova","pl":"Другое","m":"","pr":"Лейка ароматическая","s":9000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"Рилс подборка  28.02","ctype":"","cval":"","del":"","addr":"","id":1059},{"b":"mmaryy_23","pl":"Другое","m":"","pr":"Лейка ароматическая","s":15000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"рилз, сторис, тг 01.03.","ctype":"","cval":"","del":"","addr":"","id":1060},{"b":"scandi.mooom","pl":"Другое","m":"","pr":"Лейка ароматическая","s":7000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"2026-03-03 00:00:00","ctype":"","cval":"","del":"","addr":"","id":1061},{"b":"@kiro4ka_er","pl":"Likee","m":"","pr":"Набор + гель для душа","s":10420,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2025-09-12","l":"","c":"Ролик в Likee","ctype":"","cval":"","del":"","addr":"","id":1062},{"b":"Ласкома","pl":"YouTube","m":"","pr":"Набор + гель для душа","s":52000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2025-09-21","l":"","c":"Ролики в YouTube","ctype":"","cval":"","del":"","addr":"","id":1063},{"b":"Белоснежная","pl":"Likee","m":"","pr":"Набор + гель для душа","s":5000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2025-09-11","l":"","c":"Ролик в Likee","ctype":"","cval":"","del":"","addr":"","id":1064},{"b":"Лебедята","pl":"YouTube","m":"","pr":"Набор + гель для душа","s":3020,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2025-09-11","l":"","c":"Ролик в Likee, YouTube и ВК","ctype":"","cval":"","del":"","addr":"","id":1065},{"b":"Майа","pl":"Likee","m":"","pr":"Лейка ароматическая","s":15928,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2025-09-23","l":"","c":"Ролик в Likee","ctype":"","cval":"","del":"","addr":"","id":1066},{"b":"@IrinaMiir","pl":"Likee","m":"","pr":"Набор + гель для душа","s":16988,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2025-09-30","l":"","c":"Ролик в Likee","ctype":"","cval":"","del":"","addr":"","id":1067},{"b":"@Vikago","pl":"YouTube","m":"","pr":"Набор + гель для душа","s":42000,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":null,"l":"","c":"Ролик в YouTube (Likee, Vk, Rutube)","ctype":"","cval":"","del":"","addr":"","id":1068},{"b":"Елизавета Эль","pl":"Likee","m":"","pr":"Набор + гель для душа","s":0,"py":"Карта физлица","st":"Размещено","reach":null,"v":null,"sl":null,"dt":"2025-08-16","l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1069},{"b":"nedz_yuliya","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":7000,"py":"Карта физлица","st":"Размещено","reach":20000,"v":null,"sl":null,"dt":"2026-02-25","l":"","c":"подборка товаров (5-6)","ctype":"","cval":"","del":"","addr":"","id":1070},{"b":"evgeniya_pro_wb","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":5000,"py":"Карта физлица","st":"Размещено","reach":15000,"v":null,"sl":null,"dt":"2026-02-25","l":"","c":"дублирование в ТикТок, Youtube, TG","ctype":"","cval":"","del":"","addr":"","id":1071},{"b":"maya_wildberries","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":7000,"py":"Карта физлица","st":"Размещено","reach":36000,"v":36700,"sl":null,"dt":"2026-02-24","l":"","c":"репост в сторис, отзыв на ВБ","ctype":"","cval":"","del":"","addr":"","id":1072},{"b":"tanya_pro_wb","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4000,"py":"Карта физлица","st":"Размещено","reach":8000,"v":null,"sl":null,"dt":"2026-02-19","l":"","c":"рилз, сторис, YouTube, TikTok, Tg, VK, Yappy, Wibes, выкуп и отзыв на ВБ","ctype":"","cval":"","del":"","addr":"","id":1073},{"b":"egorenkova_nata","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4480,"py":"Карта физлица","st":"Размещено","reach":9300,"v":8680,"sl":null,"dt":"2026-02-25","l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1074},{"b":"stefanishka.m","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":16000,"py":"Карта физлица","st":"Размещено","reach":29000,"v":null,"sl":null,"dt":"2026-02-25","l":"","c":"хорошо заходят ее форматы, не совсем по ТЗ","ctype":"","cval":"","del":"","addr":"","id":1075},{"b":"tata_mama_home","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":3000,"py":"Карта физлица","st":"Размещено","reach":17000,"v":21500,"sl":null,"dt":"2026-02-25","l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1076},{"b":"home_my_so","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":3000,"py":"Карта физлица","st":"Размещено","reach":7000,"v":null,"sl":null,"dt":"2026-02-28","l":"","c":"подборка","ctype":"","cval":"","del":"","addr":"","id":1077},{"b":"yulechkakorotkova","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4000,"py":"Карта физлица","st":"Размещено","reach":13000,"v":8626,"sl":null,"dt":"2026-02-28","l":"","c":"подборка","ctype":"","cval":"","del":"","addr":"","id":1078},{"b":"mom.dlis","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":4500,"py":"Карта физлица","st":"Размещено","reach":14600,"v":null,"sl":null,"dt":"2026-02-28","l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1079},{"b":"nastyusha_egorova","pl":"Instagram","m":"","pr":"Лейка ароматическая","s":5000,"py":"Карта физлица","st":"Размещено","reach":6300,"v":null,"sl":null,"dt":"2026-02-28","l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1080},{"b":"Dasha Dary","pl":"Likee","m":"тг","pr":"Набор + гель для душа","s":1000,"py":"Карта физлица","st":"Размещено","reach":1600,"v":1740,"sl":null,"dt":"2026-02-20","l":"https://l.likee.video/p/iPTFQ2","c":"Пункт Ozon Москва, Грузинский пер., 6","ctype":"","cval":"","del":"","addr":"","id":1081},{"b":"Naste life","pl":"Likee","m":"shawty","pr":"Набор + гель для душа","s":2500,"py":"Карта физлица","st":"Размещено","reach":2600,"v":1441,"sl":null,"dt":"2026-02-20","l":"https://l.likee.video/p/ySFaLl","c":"Пункт Ozon Сургут, пр-кт Ленина, 36","ctype":"","cval":"","del":"","addr":"","id":1082},{"b":"Beauty Tita","pl":"Instagram","m":"chrisswb","pr":"Набор + гель для душа","s":2500,"py":"Карта физлица","st":"Размещено","reach":2500,"v":1102,"sl":null,"dt":"2026-02-20","l":"","c":"г Волжский, ул.им Генерала Карбышева, 126 (плюс др соцсети)","ctype":"","cval":"","del":"","addr":"","id":1083},{"b":"МИЛУНА","pl":"Likee","m":"anastasiaproduchen","pr":"Набор + гель для душа","s":2000,"py":"Карта физлица","st":"Размещено","reach":15000,"v":null,"sl":null,"dt":"2026-02-20","l":"https://l.likee.video/p/deiyMZ","c":"г. Екатеринбург, мкр. Светлый д.4 (плюс тикток https://www.tiktok.com/@milaunka3?_r=1&_t=ZS-9403U0N5bgC)","ctype":"","cval":"","del":"","addr":"","id":1084},{"b":"Та самая полина","pl":"Instagram","m":"evg_prodd","pr":"Набор + гель для душа","s":6000,"py":"Карта физлица","st":"Размещено","reach":50000,"v":null,"sl":null,"dt":"2026-02-20","l":"","c":"жду","ctype":"","cval":"","del":"","addr":"","id":1085},{"b":"Ева Гроголь","pl":"Instagram","m":"evg_prodd","pr":"Набор + гель для душа","s":3500,"py":"Карта физлица","st":"Размещено","reach":2600,"v":null,"sl":null,"dt":"2026-02-20","l":"","c":"жду","ctype":"","cval":"","del":"","addr":"","id":1086},{"b":"Мила Мальшакова","pl":"Likee","m":"evg_prodd","pr":"Набор + гель для душа","s":3000,"py":"Карта физлица","st":"Размещено","reach":2000,"v":null,"sl":null,"dt":"2026-02-20","l":"https://likee.video/p/avHkoM","c":"жду","ctype":"","cval":"","del":"","addr":"","id":1087},{"b":"Arina Paper","pl":"Likee","m":"Arina5w","pr":"Набор + гель для душа","s":2000,"py":"Карта физлица","st":"Размещено","reach":4600,"v":2906,"sl":null,"dt":"2026-02-20","l":"https://l.likee.video/p/26m7Yc","c":"Ростовская область, город Гуково, улица Молодёжная 18","ctype":"","cval":"","del":"","addr":"","id":1088},{"b":"nanadisa","pl":"Instagram","m":"sayphetova","pr":"Набор + гель для душа","s":800,"py":"Карта физлица","st":"Размещено","reach":1400,"v":1051,"sl":null,"dt":"2026-02-20","l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1089},{"b":"Аляска","pl":"Likee","m":"cenerm","pr":"Набор + гель для душа","s":800,"py":"Карта физлица","st":"Размещено","reach":4800,"v":6032,"sl":null,"dt":"2026-02-20","l":"https://l.likee.video/p/ezqO0","c":"","ctype":"","cval":"","del":"","addr":"","id":1090},{"b":"misanzik","pl":"Instagram","m":"slaymekwja","pr":"Набор + гель для душа","s":500,"py":"Карта физлица","st":"Размещено","reach":1800,"v":6230,"sl":null,"dt":"2026-02-25","l":"","c":"","ctype":"","cval":"","del":"","addr":"","id":1091},{"b":"lalala_8976","pl":"Likee","m":"mani_mani1","pr":"Набор + гель для душа","s":1000,"py":"Карта физлица","st":"Размещено","reach":8500,"v":null,"sl":null,"dt":"2026-03-02","l":"https://l.likee.video/p/5PrX3Y","c":"","ctype":"","cval":"","del":"","addr":"","id":1092},{"b":"Ksenya_LB","pl":"Likee","m":"Ksenya_LB","pr":"Набор + гель для душа","s":500,"py":"Карта физлица","st":"Размещено","reach":2300,"v":null,"sl":null,"dt":"2026-03-02","l":"https://l.likee.video/p/ER6D5j","c":"","ctype":"","cval":"","del":"","addr":"","id":1093}];
+const INIT_BLOGGERS=[{"n":"marina__remont17","pl":"Instagram","sb":81700,"reach":9000,"cpv":0.6667,"d":0,"p":"6 000 ₽","c":""},{"n":"ylia_wb_obzor","pl":"Instagram","sb":59500,"reach":13200,"cpv":0.8333,"d":0,"p":"11 000 ₽","c":""},{"n":"nedz_yuliya","pl":"Instagram","sb":77600,"reach":20000,"cpv":1.219,"d":0,"p":"24 380 ₽","c":"дублирование в ТикТок"},{"n":"washa_dashaa","pl":"Instagram","sb":36000,"reach":6000,"cpv":1.3333,"d":0,"p":"8 000 ₽","c":""},{"n":"mari.leykina","pl":"Instagram","sb":54700,"reach":7000,"cpv":2.1429,"d":0,"p":"15 000 ₽","c":"подборка о велнес гаджетах зашла на 126 тыс просмотров"},{"n":"mmaryy_23","pl":"Instagram","sb":202000,"reach":50000,"cpv":0.2,"d":0,"p":"10 000 ₽","c":"совместная распаковка"},{"n":"anyta_romashina","pl":"Instagram","sb":51600,"reach":null,"cpv":null,"d":0,"p":"—","c":""},{"n":"victoria_my_home","pl":"Instagram","sb":289000,"reach":50000,"cpv":0.4,"d":0,"p":"20 000 ₽","c":""},{"n":"3ka_home","pl":"Instagram","sb":368000,"reach":50000,"cpv":0.8,"d":0,"p":"40 000 ₽","c":""},{"n":"shati.favorits","pl":"Instagram","sb":20700,"reach":15000,"cpv":0.2,"d":0,"p":"3 000 ₽","c":"товар в подборке (до 7 товаров)"},{"n":"elena_boriska","pl":"Instagram","sb":328000,"reach":48000,"cpv":0.8333,"d":0,"p":"40 000 ₽","c":"может включать несколько наших товаров"},{"n":"gran_home_","pl":"Instagram","sb":38000,"reach":3000,"cpv":2.0,"d":0,"p":"6 000 ₽","c":"дублирует в тикток, тг, лайки"},{"n":"polinathereal","pl":"Instagram","sb":67900,"reach":20000,"cpv":3.0,"d":0,"p":"60 000 ₽","c":""},{"n":"anliife","pl":"Instagram","sb":34300,"reach":7000,"cpv":1.6657,"d":0,"p":"11 660 ₽","c":"есть соавторство +2000р"},{"n":"mary_chig","pl":"Instagram","sb":21200,"reach":6400,"cpv":3.3125,"d":0,"p":"21 200 ₽","c":""},{"n":"slushaipolu","pl":"Instagram","sb":58800,"reach":27600,"cpv":0.9058,"d":0,"p":"25 000 ₽","c":"подборки последнее время набирают 110 тыс, ведет в тг за артикулом, но может разместить артикул в закрепленном комментарии"},{"n":"zulya.svideteleva","pl":"Instagram","sb":115000,"reach":15000,"cpv":1.0,"d":0,"p":"15 000 ₽","c":""},{"n":"_dom_s_kotikami","pl":"Instagram","sb":84700,"reach":15000,"cpv":0.9333,"d":0,"p":"14 000 ₽","c":""},{"n":"irisha_hyggehome","pl":"Instagram","sb":68000,"reach":9000,"cpv":0.6667,"d":0,"p":"6 000 ₽","c":""},{"n":"in_myhome.vn","pl":"Instagram","sb":214000,"reach":null,"cpv":null,"d":0,"p":"30 000 ₽","c":"размещает в 3 соцсетях *300 тыс аудитория"},{"n":"pasya_wb__obzor","pl":"Instagram","sb":24900,"reach":8000,"cpv":0.5,"d":0,"p":"4 000 ₽","c":""},{"n":"djulia_wb","pl":"Instagram","sb":29100,"reach":6400,"cpv":0.5469,"d":0,"p":"3 500 ₽","c":"публикация в нескольких соцсетях"},{"n":"olga__mommy2","pl":"Instagram","sb":56900,"reach":12000,"cpv":0.5833,"d":0,"p":"7 000 ₽","c":"рилз, ютуб, вк"},{"n":"strana_livehach","pl":"Instagram","sb":1000000,"reach":110000,"cpv":0.5,"d":0,"p":"55 000 ₽","c":"в формате подборки"},{"n":"momotova.katya","pl":"Instagram","sb":1100000,"reach":360000,"cpv":0.2061,"d":0,"p":"74 200 ₽","c":"осн тематика кулинария, но можно подарки например"},{"n":"katu_troitskaya","pl":"Instagram","sb":324000,"reach":17000,"cpv":0.8824,"d":0,"p":"15 000 ₽","c":"подборка подарков на 8 марта"},{"n":"raninen_indira","pl":"Instagram","sb":12800,"reach":2000,"cpv":0.65,"d":0,"p":"1 300 ₽","c":""},{"n":"lassen.victoria","pl":"Instagram","sb":6649,"reach":1200,"cpv":0.0,"d":0,"p":"—","c":""},{"n":"olka_violka_home","pl":"Instagram","sb":20400,"reach":6100,"cpv":0.5738,"d":0,"p":"3 500 ₽","c":""},{"n":"m.alinahome","pl":"Instagram","sb":50000,"reach":6900,"cpv":0.6522,"d":0,"p":"4 500 ₽","c":""},{"n":"martynovich.elena","pl":"Instagram","sb":66300,"reach":15000,"cpv":0.7333,"d":0,"p":"11 000 ₽","c":"дубль в тикток, , тг"},{"n":"biblio.diva","pl":"Instagram","sb":139000,"reach":13000,"cpv":0.6154,"d":0,"p":"8 000 ₽","c":"только 1 товар"},{"n":"nika_bezverhih","pl":"Instagram","sb":80000,"reach":21000,"cpv":1.4286,"d":0,"p":"30 000 ₽","c":"только 1 товар"},{"n":"missis_nadin_home","pl":"Instagram","sb":532000,"reach":57000,"cpv":0.7018,"d":0,"p":"40 000 ₽","c":"плюс отзыв на маркетплейсе"},{"n":"julya_led","pl":"Instagram","sb":127000,"reach":14500,"cpv":1.1724,"d":0,"p":"17 000 ₽","c":""},{"n":"ollyndom","pl":"Instagram","sb":79600,"reach":20000,"cpv":0.465,"d":0,"p":"9 300 ₽","c":"с отзывом на wb"},{"n":"byswetka_home","pl":"Instagram","sb":76100,"reach":11200,"cpv":0.4464,"d":0,"p":"5 000 ₽","c":""},{"n":"iremeip","pl":"Instagram","sb":113000,"reach":38000,"cpv":1.1842,"d":0,"p":"45 000 ₽","c":"бьюти блогер"},{"n":"samoy_lovatanya","pl":"Instagram","sb":57900,"reach":10000,"cpv":0.3,"d":0,"p":"3 000 ₽","c":"дубль в тикток, тг, лайк, wibes, вк"},{"n":"grigoryuk_13","pl":"Instagram","sb":118000,"reach":74000,"cpv":0.1081,"d":0,"p":"8 000 ₽","c":"подборка товаров"},{"n":"love.in.home","pl":"Instagram","sb":145000,"reach":7000,"cpv":2.2857,"d":0,"p":"16 000 ₽","c":""},{"n":"kristina.kosmetos","pl":"Instagram","sb":75000,"reach":45000,"cpv":0.4,"d":0,"p":"18 000 ₽","c":"публикация на 1,5 месяца, рилз, тг, бтуб, тикток, отзыв"},{"n":"ma_kriska","pl":"Instagram","sb":49600,"reach":20000,"cpv":0.3,"d":0,"p":"6 000 ₽","c":"подборка товаров"},{"n":"kahome_design","pl":"Instagram","sb":105000,"reach":15000,"cpv":0.848,"d":0,"p":"12 720 ₽","c":""},{"n":"alisa__galiullina","pl":"Instagram","sb":38800,"reach":8700,"cpv":0.9195,"d":0,"p":"8 000 ₽","c":"рилз, шортс, тг"},{"n":"konovalova_katherina","pl":"Instagram","sb":153000,"reach":48000,"cpv":0.2083,"d":0,"p":"10 000 ₽","c":"подборка"},{"n":"natalia__family","pl":"Instagram","sb":117000,"reach":25000,"cpv":0.8,"d":0,"p":"20 000 ₽","c":"рилз"},{"n":"naxodka_wb_ru","pl":"Instagram","sb":null,"reach":26700,"cpv":0.1873,"d":0,"p":"5 000 ₽","c":"дубль в тикток и тг, не эстетик, а простой аккаунт"},{"n":"alborovaas","pl":"Instagram","sb":620000,"reach":14200,"cpv":0.9155,"d":0,"p":"13 000 ₽","c":""},{"n":"svetiblondi","pl":"Instagram","sb":22200,"reach":10000,"cpv":0.4,"d":0,"p":"4 000 ₽","c":"обзор товара"},{"n":"wb_obzorruu","pl":"Instagram","sb":197000,"reach":20000,"cpv":0.325,"d":0,"p":"6 500 ₽","c":"дубль  тикток, ВК, ТГ, YouTube шортс"},{"n":"kristinkin_home_","pl":"Instagram","sb":95700,"reach":11600,"cpv":0.6897,"d":0,"p":"8 000 ₽","c":"дубль в YouTube и VK"},{"n":"nastya.theone","pl":"Instagram","sb":79000,"reach":8000,"cpv":0.5,"d":0,"p":"4 000 ₽","c":""},{"n":"golikovaviktoria","pl":"Instagram","sb":10200,"reach":4400,"cpv":1.8182,"d":0,"p":"8 000 ₽","c":""},{"n":"dashadoma_","pl":"Instagram","sb":220000,"reach":36000,"cpv":1.375,"d":0,"p":"49 500 ₽","c":""},{"n":"galanskaya_maria","pl":"Instagram","sb":101000,"reach":100000,"cpv":0.5,"d":0,"p":"50 000 ₽","c":"гарантированный охват от 100 тыс до 3 млн"},{"n":"zaripova_dilyara","pl":"Instagram","sb":274000,"reach":60000,"cpv":0.4167,"d":0,"p":"25 000 ₽","c":""},{"n":"thedomsvn","pl":"Instagram","sb":7200,"reach":9900,"cpv":0.404,"d":0,"p":"4 000 ₽","c":"без озвучки, ASMR, эстетично"},{"n":"karinates_life","pl":"Instagram","sb":90100,"reach":17000,"cpv":0.5882,"d":0,"p":"10 000 ₽","c":"подборка"},{"n":"ina_gapanovich","pl":"Instagram","sb":61900,"reach":13800,"cpv":0.7246,"d":0,"p":"10 000 ₽","c":"рилз, тг, тикток, ютуб,"},{"n":"regina.reshka","pl":"Instagram","sb":48400,"reach":13000,"cpv":0.5769,"d":0,"p":"7 500 ₽","c":"подборка 5-6 артикулов"},{"n":"zhdanova_irihka","pl":"Instagram","sb":101000,"reach":13000,"cpv":0.6154,"d":0,"p":"8 000 ₽","c":"не супер аэстетик, артикул в закрепленном комментарии, дубль в тг, лайки, ютуб, ВК, тикток"},{"n":"Блогер","pl":"Instagram","sb":null,"reach":null,"cpv":null,"d":0,"p":"—","c":"Комментарии"},{"n":"nastyusha__egorova","pl":"Instagram","sb":14700,"reach":7000,"cpv":0.7143,"d":0,"p":"5 000 ₽","c":"индивидуальный рилз"},{"n":"us.olyala","pl":"Instagram","sb":null,"reach":null,"cpv":null,"d":0,"p":"3 500 ₽","c":"Инст, лайки, тикток, вайбсг, шортс"},{"n":"_olyador_","pl":"Instagram","sb":56500,"reach":15000,"cpv":0.5333,"d":0,"p":"8 000 ₽","c":"рилз, сторис, ютуб, тикток, тг, певый в подборке, отзыв"},{"n":"tanni_kras","pl":"Instagram","sb":null,"reach":9000,"cpv":0.5556,"d":0,"p":"5 000 ₽","c":"без согл, только наши товары, рилз, тг, лайки, тикток"},{"n":"ledi_obzor","pl":"Instagram","sb":41800,"reach":6000,"cpv":0.8333,"d":0,"p":"5 000 ₽","c":""},{"n":"mrs_masha4","pl":"Instagram","sb":38200,"reach":6900,"cpv":0.5072,"d":0,"p":"3 500 ₽","c":"без согл, только наши товары, рилз, youtube"},{"n":"baunty decor","pl":"Instagram","sb":null,"reach":null,"cpv":null,"d":0,"p":"12 000 ₽","c":""},{"n":"mam_bloger","pl":"Instagram","sb":null,"reach":7500,"cpv":0.2667,"d":0,"p":"2 000 ₽","c":"рилз, сторис, отзыв"},{"n":"svetik_korolyuk","pl":"Instagram","sb":424000,"reach":41000,"cpv":1.0976,"d":0,"p":"45 000 ₽","c":""},{"n":"dinagross91","pl":"Instagram","sb":137000,"reach":21000,"cpv":0.5714,"d":0,"p":"12 000 ₽","c":""},{"n":"tsarkovva","pl":"Instagram","sb":99700,"reach":11000,"cpv":2.7273,"d":0,"p":"30 000 ₽","c":""},{"n":"beglecova_e","pl":"Instagram","sb":226000,"reach":12700,"cpv":1.3386,"d":0,"p":"17 000 ₽","c":""},{"n":"efa_kris","pl":"Instagram","sb":26200,"reach":12900,"cpv":0.4264,"d":0,"p":"5 500 ₽","c":"персональный рилз, дубль в тикток, ютуб,тг"},{"n":"prosto_sevaa","pl":"Instagram","sb":null,"reach":40000,"cpv":0.25,"d":0,"p":"10 000 ₽","c":"подборка"},{"n":"vikaborschh","pl":"Instagram","sb":null,"reach":7700,"cpv":0.4545,"d":0,"p":"3 500 ₽","c":"подборка"},{"n":"julia_puress","pl":"Instagram","sb":null,"reach":26000,"cpv":0.3269,"d":0,"p":"8 500 ₽","c":"отзывы не пишут"},{"n":"dom.o.s.e.d.k.a","pl":"Instagram","sb":null,"reach":13000,"cpv":0.2308,"d":0,"p":"3 000 ₽","c":""},{"n":"evgeniya_vereina","pl":"Instagram","sb":null,"reach":3400,"cpv":0.5882,"d":0,"p":"2 000 ₽","c":"подборка"},{"n":"xutoryanka_nadin","pl":"Instagram","sb":null,"reach":null,"cpv":null,"d":0,"p":"2 500 ₽","c":"инст, тт, ютуб"},{"n":"tanusik_choco","pl":"Instagram","sb":null,"reach":17800,"cpv":0.3652,"d":0,"p":"6 500 ₽","c":""},{"n":"Vikoz_raspakoz","pl":"Instagram","sb":null,"reach":3400,"cpv":0.8824,"d":0,"p":"3 000 ₽","c":"2 товара, закреп на 1 неделю, без согласования"},{"n":"max_chakov","pl":"Instagram","sb":null,"reach":7600,"cpv":1.0526,"d":0,"p":"8 000 ₽","c":""},{"n":"nelly_iss","pl":"Instagram","sb":null,"reach":8700,"cpv":0.4598,"d":0,"p":"4 000 ₽","c":"без согласования"},{"n":"julia.obinna","pl":"Instagram","sb":null,"reach":5900,"cpv":0.678,"d":0,"p":"4 000 ₽","c":""},{"n":"anastasiya.k.v","pl":"Instagram","sb":null,"reach":6100,"cpv":0.6557,"d":0,"p":"4 000 ₽","c":""},{"n":"bortnovskaaya","pl":"Instagram","sb":null,"reach":31000,"cpv":0.4194,"d":0,"p":"13 000 ₽","c":""},{"n":"kattia_channel","pl":"Instagram","sb":null,"reach":null,"cpv":null,"d":0,"p":"—","c":""},{"n":"katrinn.katrin","pl":"Instagram","sb":null,"reach":5000,"cpv":0.2,"d":0,"p":"1 000 ₽","c":""},{"n":"ma.vi.nika","pl":"Instagram","sb":null,"reach":10000,"cpv":0.4,"d":0,"p":"4 000 ₽","c":""},{"n":"mokka.ira","pl":"Instagram","sb":null,"reach":12000,"cpv":1.5,"d":0,"p":"18 000 ₽","c":""},{"n":"shlomadaria","pl":"Instagram","sb":null,"reach":121000,"cpv":0.6198,"d":0,"p":"75 000 ₽","c":""},{"n":"wildberries_baby_","pl":"Instagram","sb":60900,"reach":13000,"cpv":0.0328,"d":0,"p":"2 000 ₽","c":"включить в пост детских подарков до 4 артикулов"},{"n":"tata_mama_home","pl":"Instagram","sb":24700,"reach":17000,"cpv":0.1765,"d":0,"p":"3 000 ₽","c":""},{"n":"ksenyalyn","pl":"Instagram","sb":null,"reach":null,"cpv":null,"d":0,"p":"—","c":""},{"n":"lizashvily","pl":"Instagram","sb":40000,"reach":700,"cpv":1.1429,"d":0,"p":"800 ₽","c":""},{"n":"Королева Алена","pl":"Likee","sb":19700,"reach":750,"cpv":0.6667,"d":0,"p":"500 ₽","c":""},{"n":"Алинчик обзоры","pl":"Likee","sb":146000,"reach":600,"cpv":0.1667,"d":0,"p":"100 ₽","c":""},{"n":"Это Рина!!","pl":"Instagram","sb":15200,"reach":760,"cpv":null,"d":0,"p":"—","c":""},{"n":"👑♡ RINA ♡","pl":"Likee","sb":324000,"reach":1700,"cpv":1.3529,"d":0,"p":"2 300 ₽","c":""},{"n":"Lisonchik+ mom","pl":"Instagram","sb":229000,"reach":1300,"cpv":2.3077,"d":0,"p":"3 000 ₽","c":""},{"n":"Оскаридзе","pl":"Instagram","sb":12100000,"reach":9000,"cpv":2.7778,"d":0,"p":"25 000 ₽","c":""},{"n":"ket_na_svyazy","pl":"Likee","sb":56500,"reach":5500,"cpv":0.0,"d":0,"p":"—","c":""},{"n":"MashaLokStar","pl":"Likee","sb":null,"reach":950,"cpv":0.3684,"d":0,"p":"350 ₽","c":""},{"n":"Ева Васюкова","pl":"Likee","sb":27900,"reach":720,"cpv":0.3472,"d":0,"p":"250 ₽","c":""},{"n":"super ket 2","pl":"Likee","sb":912,"reach":920,"cpv":0.0,"d":0,"p":"—","c":""},{"n":"laskynn","pl":"Instagram","sb":null,"reach":240000,"cpv":0.2208,"d":0,"p":"53 000 ₽","c":""},{"n":"виталик😁","pl":"Likee","sb":366000,"reach":1100,"cpv":0.2273,"d":0,"p":"250 ₽","c":""},{"n":"ВОВОЧКА МИО","pl":"Likee","sb":31300,"reach":950,"cpv":0.4211,"d":0,"p":"400 ₽","c":""},{"n":"elizaveta_striz","pl":"Likee","sb":null,"reach":1000,"cpv":42.4,"d":0,"p":"42 400 ₽","c":""},{"n":"Мария Титова","pl":"Likee","sb":805000,"reach":4000,"cpv":4.5,"d":0,"p":"18 000 ₽","c":""},{"n":"Веселая Семейка","pl":"Likee","sb":null,"reach":1000,"cpv":null,"d":0,"p":"—","c":""},{"n":"Adelina_miss","pl":"Instagram","sb":65300,"reach":650,"cpv":0.0,"d":0,"p":"—","c":"Свердловская область, муниципальное образование Город Екатеринбург, село Горный Щит, улица Будённого, 1К"},{"n":"Альбиша","pl":"Instagram","sb":13100,"reach":900,"cpv":0.0,"d":0,"p":"—","c":""},{"n":"Симпл Хаус","pl":"Likee","sb":433000,"reach":5000,"cpv":3.0,"d":0,"p":"15 000 ₽","c":""},{"n":"Марьяна Ми","pl":"Likee","sb":null,"reach":14000,"cpv":1.4286,"d":0,"p":"20 000 ₽","c":""},{"n":"Olivia_Family","pl":"Likee","sb":708000,"reach":153000,"cpv":0.3595,"d":0,"p":"55 000 ₽","c":""},{"n":"Мимика","pl":"Instagram","sb":null,"reach":35000,"cpv":1.1429,"d":0,"p":"40 000 ₽","c":""},{"n":"Никита Шульгин","pl":"Likee","sb":null,"reach":154000,"cpv":1.5479,"d":0,"p":"238 370 ₽","c":""},{"n":"Василечек1512","pl":"Likee","sb":null,"reach":60000,"cpv":0.5,"d":0,"p":"30 000 ₽","c":""},{"n":"Кируся","pl":"Instagram","sb":null,"reach":null,"cpv":null,"d":0,"p":"15 000 ₽","c":""},{"n":"I'am ZLATA","pl":"Instagram","sb":null,"reach":2000,"cpv":0.25,"d":0,"p":"500 ₽","c":""},{"n":"Стешок","pl":"Instagram","sb":null,"reach":80000,"cpv":2.45,"d":0,"p":"196 000 ₽","c":""},{"n":"Елизавета Эль","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"Likee 8000₽\nTr 3500₽","c":""},{"n":"Майа","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"Likee 15000₽\n+налог 1500₽","c":""},{"n":"Василечек","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"likee 30.000 р","c":""},{"n":"Виола ви","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"30-80К likee","c":""},{"n":"@Tori.As","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"Likee 12.000₽","c":""},{"n":"@belosnejnayAlina 283к","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"Likee 5.000₽","c":""},{"n":"@kiro4ka_er 762 к","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"Likee 10.000₽ +4% налог","c":""},{"n":"@lebedyata 836к","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"3.000₽ за все соцсети вместе (YouTube, Likee, TikT","c":""},{"n":"@irinaMir 626к","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"•YouTube - 14 т.р.\n•Likee(1.1М🍋) - 19 т.р\n•Likee(6","c":""},{"n":"@lady_Milanka","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"60т.р. + 6%","c":""},{"n":"@luchy_nika 465к","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"18 800 руб (ролик до 40 сек)","c":""},{"n":"@vikago Likee 440k","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"42.000₽ за все соц сети: YouTube  3.26млн 🍋https:/","c":""},{"n":"АриШОК","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"Отдельно реклама в лайке будет стоить 60.000 руб. ","c":""},{"n":"Эмилия Артамонова","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"17000р Likee","c":""},{"n":"@Anna_eva_nes","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"8.000₽ Likee","c":""},{"n":"@luchy_nika","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"18.800 ₽ Likee","c":""},{"n":"@miniboom1","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"12.000 ₽ Likee","c":""},{"n":"@KristinaKadetova","pl":"Likee","sb":null,"reach":null,"cpv":null,"d":0,"p":"10.000₽ Likee","c":""}];
+function load(){
+  try{
+    const d=localStorage.getItem('deals_v2');
+    const b=localStorage.getItem('blogs_v2');
+    return{
+      deals:d?JSON.parse(d):JSON.parse(JSON.stringify(INIT_DEALS)),
+      blogs:b?JSON.parse(b):JSON.parse(JSON.stringify(INIT_BLOGGERS))
+    };
+  }catch(e){return{deals:JSON.parse(JSON.stringify(INIT_DEALS)),blogs:JSON.parse(JSON.stringify(INIT_BLOGGERS))};}
+}
+function save(){
+  try{localStorage.setItem('deals_v2',JSON.stringify(state.deals));localStorage.setItem('blogs_v2',JSON.stringify(state.blogs));}catch(e){}
+}
+let state=load();
+let dF='all',bF='all',aDId=null,activeMth='all';
+
+const fmt=n=>n?n.toLocaleString('ru-RU'):'—';
+const fR=n=>n?n.toLocaleString('ru-RU')+' ₽':'—';
+const cC=v=>!v?'':v<0.4?'cpv-g':v<0.8?'cpv-m':'cpv-b';
+const bdg=s=>`<span class="badge ${SC[s]||'bs'}">${s}</span>`;
+
+// CPV по охвату = сумма / средний охват
+function calcCPVReach(d){
+  if(!d.s||!d.reach)return null;
+  return d.s/d.reach;
+}
+// CPV по просмотрам = сумма / просмотры факт
+function calcCPVViews(d){
+  if(!d.s||!d.v)return null;
+  return d.s/d.v;
+}
+// для карточки показываем оба (приоритет — просмотры, если есть)
+function calcCPV(d){
+  return calcCPVViews(d)||calcCPVReach(d);
+}
+
+function renderDash(){
+  renderMonthPills('dash-month-pills');
+  const d=filterByMonth(state.deals);
+  const placed=d.filter(x=>x.st==='Размещено');
+  const spent=d.filter(x=>['Оплачено','Размещено'].includes(x.st)).reduce((a,x)=>a+x.s,0);
+  // avg CPV по охвату
+  const placedWithReach=placed.filter(x=>x.s&&x.reach);
+  const avgCPVReach=placedWithReach.length?placedWithReach.reduce((a,x)=>a+x.s/x.reach,0)/placedWithReach.length:null;
+  // avg CPV по просмотрам
+  const placedWithViews=placed.filter(x=>x.s&&x.v);
+  const avgCPVViews=placedWithViews.length?placedWithViews.reduce((a,x)=>a+x.s/x.v,0)/placedWithViews.length:null;
+
+  document.getElementById('k-total').textContent=d.length;
+  document.getElementById('k-spent').textContent=fR(spent);
+  document.getElementById('k-placed').textContent=placed.length;
+  document.getElementById('k-cpv').textContent=avgCPVReach?avgCPVReach.toFixed(2)+' ₽':'—';
+  document.getElementById('k-cpv2').textContent=avgCPVViews?avgCPVViews.toFixed(2)+' ₽':'—';
+
+  const sts=['Поиск','Переговоры','Ожидает оплаты','Бартер','Оплачено','Размещено','Отказ'];
+  const cnt={};sts.forEach(s=>cnt[s]=d.filter(x=>x.st===s).length);
+  const mx=Math.max(...Object.values(cnt),1);
+  document.getElementById('funnel').innerHTML=sts.map(s=>`<div class="frow"><div class="flab">${s}</div><div class="ftrack"><div class="ffill" style="width:${Math.round(cnt[s]/mx*100)}%;background:${FC[s]}"></div></div><div class="fnum">${cnt[s]}</div></div>`).join('');
+
+  document.getElementById('mgr-block').innerHTML=MGRS.map((m,i)=>{
+    const md=d.filter(x=>x.m===m);
+    const ms=md.filter(x=>['Оплачено','Размещено'].includes(x.st)).reduce((a,x)=>a+x.s,0);
+    const mPlaced=md.filter(x=>x.st==='Размещено'&&x.s&&x.reach);
+    const mc=mPlaced.length?(mPlaced.reduce((a,x)=>a+x.s/x.reach,0)/mPlaced.length).toFixed(2)+' ₽':'—';
+    const mcl=mPlaced.length?cC(mPlaced.reduce((a,x)=>a+x.s/x.reach,0)/mPlaced.length):'';
+    return`<div class="mgr-row"><div style="display:flex;align-items:center;gap:9px"><div class="avi ${AV_CLS[i]}">${AV_INI[i]}</div><div><div class="mname">${m}</div><div class="mdeals">${md.length} сделок</div></div></div><div class="mstats"><div><div class="sval">${fR(ms)}</div><div class="slbl">потрачено</div></div><div><div class="sval ${mcl}">${mc}</div><div class="slbl">CPV</div></div></div></div>`;
+  }).join('');
+
+  const rec=[...d].slice(-5).reverse();
+  document.getElementById('recent-list').innerHTML=rec.map(d=>dealCard(d)).join('');
+}
+
+function dealCard(d){
+  const cpv=calcCPV(d);
+  return`<div class="deal-card" onclick="openDet(${d.id})">
+    <div class="dc-top"><div><div class="dc-name">${d.b}</div><div class="dc-plat">${d.pl} · ${d.m}</div></div>${bdg(d.st)}</div>
+    <div class="dc-meta">
+      <span class="dc-sum">${d.s?fR(d.s):'Бартер'}</span>
+      <span class="dc-mgr">${d.pr}</span>
+      ${calcCPVViews(d)?`<span class="dc-cpv ${cC(calcCPVViews(d))}">👁 ${calcCPVViews(d).toFixed(2)} ₽</span>`:''}
+      ${calcCPVReach(d)&&!calcCPVViews(d)?`<span class="dc-cpv ${cC(calcCPVReach(d))}">📊 ${calcCPVReach(d).toFixed(2)} ₽</span>`:''}
+      ${d.del?`<span style="font-size:11px;color:var(--text3)">${DEL_ICON[d.del]||''} ${DEL_LABELS[d.del]||''}</span>`:''}
+    </div>
+  </div>`;
+}
+
+function renderDeals(){
+  renderMonthPills('month-pills');
+  const rows=filterByMonth(state.deals).filter(d=>dF==='all'||d.st===dF);
+  document.getElementById('deals-list').innerHTML=rows.length?rows.map(d=>dealCard(d)).join(''):'<div class="empty">Нет сделок по фильтру</div>';
+}
+
+function renderBloggers(){
+  // sort alphabetically
+  const q2=(document.getElementById('b-search')||{}).value||'';
+  const rows=[...state.blogs].filter(b=>{
+    if(bF==='__refused__') return !!b.reason;
+    return (bF==='all'||b.pl===bF)&&(!q2||b.n.toLowerCase().includes(q2.toLowerCase()));
+  }).sort((a,b)=>a.n.replace('@','').localeCompare(b.n.replace('@',''),'ru'));
+  document.getElementById('blogger-grid').innerHTML=rows.map(b=>{
+    // CPV from deals
+    const bd=state.deals.filter(x=>x.b===b.n&&x.s&&x.reach);
+    const cpv=bd.length?bd.reduce((a,x)=>a+x.s/x.reach,0)/bd.length:null;
+    const ct=cpv?cpv.toFixed(2)+' ₽':'—';const cc=cpv?cC(cpv):'';
+    const reach=b.reach?fmt(b.reach):b.sb?fmt(b.sb):'—';
+    const reasonBadge=b.reason?`<div style="margin-top:8px"><span style="background:var(--red-l);color:var(--red-t);font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px">${b.reason}</span></div>`:'';
+    return`<div class="b-card"><div class="b-name">${b.n}</div><div class="b-plat">${b.pl}</div>
+      <div class="b-row"><span class="b-l">Ср. охват</span><span class="b-v">${reach}</span></div>
+      <div class="b-row"><span class="b-l">CPV</span><span class="b-v ${cc}">${ct}</span></div>
+      <div class="b-row"><span class="b-l">Цена</span><span class="b-v">${b.p}</span></div>
+      <div class="b-row"><span class="b-l">Размещ.</span><span class="b-v">${b.d}</span></div>
+      ${reasonBadge}
+      ${b.c?`<div style="margin-top:6px;font-size:10px;color:var(--text3);line-height:1.4">${b.c}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function saveBudgetPlan(){
+  const v=parseInt(document.getElementById('budget-plan').value)||0;
+  try{localStorage.setItem('budget_plan',v);}catch(e){}
+}
+function loadBudgetPlan(){
+  try{return parseInt(localStorage.getItem('budget_plan'))||0;}catch(e){return 0;}
+}
+
+function renderBudget(){
+  const d=filterByMonth(state.deals);
+  const paid=d.filter(x=>['Оплачено','Размещено'].includes(x.st)&&x.py!=='Бартер').reduce((a,x)=>a+x.s,0);
+  const wait=d.filter(x=>x.st==='Ожидает оплаты').reduce((a,x)=>a+x.s,0);
+  document.getElementById('b-paid').textContent=fR(paid);
+  document.getElementById('b-wait').textContent=fR(wait);
+
+  // Budget plan progress
+  const plan=loadBudgetPlan();
+  const planInput=document.getElementById('budget-plan');
+  if(planInput&&!planInput.value&&plan) planInput.value=plan;
+  const wrap=document.getElementById('budget-progress-wrap');
+  if(plan>0){
+    wrap.style.display='block';
+    const pct=Math.min(Math.round(paid/plan*100),100);
+    const over=paid>plan;
+    const barColor=pct<70?'var(--green)':pct<90?'var(--amber)':'var(--red)';
+    document.getElementById('budget-bar').style.width=pct+'%';
+    document.getElementById('budget-bar').style.background=barColor;
+    document.getElementById('budget-pct').textContent=pct+'%';
+    document.getElementById('budget-pct').style.color=barColor;
+    document.getElementById('budget-spent-lbl').textContent='Потрачено: '+fR(paid);
+    document.getElementById('budget-remain-lbl').textContent=(over?'Перерасход: '+fR(paid-plan):'Остаток: '+fR(plan-paid));
+    document.getElementById('budget-remain-lbl').style.color=over?'var(--red)':'var(--text3)';
+  } else {
+    wrap.style.display='none';
+  }
+
+  const rows=d.filter(x=>!['Поиск','Переговоры','Отказ'].includes(x.st));
+  document.getElementById('budget-list').innerHTML=rows.length?rows.map(x=>{
+    const tax=x.py==='Счёт/самозанятый'?Math.round(x.s*0.06):0;
+    return`<div class="bud-item"><div class="bud-top"><div><div class="bud-name">${x.b}</div><div class="dc-plat" style="margin-top:2px">${x.m} · ${x.pr}</div></div><div class="bud-sum">${x.py==='Бартер'?'Бартер':fR(x.s+tax)}</div></div><div class="bud-meta">${bdg(x.st)}<span class="bud-pay">${x.py}</span>${tax?`<span class="bud-tax">налог ${fR(tax)}</span>`:''}</div></div>`;
+  }).join(''):'<div class="empty">Нет данных</div>';
+}
+
+function renderTG(){
+  const d=filterByMonth(state.deals);
+  const sts=['Поиск','Переговоры','Ожидает оплаты','Бартер','Размещено','Отказ'];
+  const ic={Поиск:'🔍',Переговоры:'💬','Ожидает оплаты':'⏳',Бартер:'🤝',Размещено:'✅',Отказ:'❌'};
+  const cnt={};sts.forEach(s=>cnt[s]=d.filter(x=>x.st===s).length);
+  const spent=d.filter(x=>['Оплачено','Размещено'].includes(x.st)).reduce((a,x)=>a+x.s,0);
+  const placedWithReach=d.filter(x=>x.st==='Размещено'&&x.s&&x.reach);
+  const cpv=placedWithReach.length?(placedWithReach.reduce((a,x)=>a+x.s/x.reach,0)/placedWithReach.length).toFixed(2):null;
+  const today=new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+  const ml=MGRS.map(m=>{const md=d.filter(x=>x.m===m);const mp=md.filter(x=>x.st==='Размещено'&&x.s&&x.reach);const mc=mp.length?(mp.reduce((a,x)=>a+x.s/x.reach,0)/mp.length).toFixed(2)+' ₽':'—';return`  ${m} — ${md.length} сд., CPV ${mc}`;}).join('\n');
+  document.getElementById('tg-prev').textContent=`☀️ Отчёт — ${today}\n\n📌 Сделок: ${d.length}\n${sts.map((s,i)=>`  ${i===sts.length-1?'└':'├'} ${ic[s]} ${s}: ${cnt[s]}`).join('\n')}\n\n💰 Потрачено: ${fR(spent)}\n  Ср. CPV: ${cpv?cpv+' ₽':'—'}\n\n👤 По менеджерам\n${ml}`;
+}
+
+function go(page,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('page-'+page).classList.add('on');
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('hdr-title').textContent=TITLES[page];
+  document.getElementById('scroll').scrollTop=0;
+  if(page==='dash')renderDash();
+  if(page==='deals')renderDeals();
+  if(page==='bloggers')renderBloggers();
+  if(page==='budget')renderBudget();
+  if(page==='tg')renderTG();
+  if(page==='settings')renderSettings();
+}
+function setDF(v,el){dF=v;document.querySelectorAll('#deal-pills .pill').forEach(p=>p.classList.remove('on'));el.classList.add('on');renderDeals();}
+function setBF(v,el){bF=v;document.querySelectorAll('#blog-pills .pill').forEach(p=>p.classList.remove('on'));el.classList.add('on');renderBloggers();}
+
+function checkDup(){
+  const val=document.getElementById('f-b').value.trim().toLowerCase();
+  const exists=val&&state.deals.some(d=>d.b.toLowerCase()===val);
+  document.getElementById('dup-warn').classList.toggle('show',exists);
+}
+
+function openNew(){
+  document.getElementById('new-ov').classList.add('open');
+  document.getElementById('new-dr').classList.add('open');
+  document.getElementById('dup-warn').classList.remove('show');
+}
+function closeNew(){document.getElementById('new-ov').classList.remove('open');document.getElementById('new-dr').classList.remove('open');}
+
+function saveDeal(){
+  const b=document.getElementById('f-b').value.trim();
+  if(!b){showToast('Введите блогера');return;}
+  const deal={
+    id:Date.now(),b,
+    pl:document.getElementById('f-pl').value,
+    m:document.getElementById('f-m').value,
+    pr:document.getElementById('f-pr').value,
+    st:document.getElementById('f-st').value,
+    s:parseInt(document.getElementById('f-s').value)||0,
+    py:document.getElementById('f-py').value,
+    reach:parseInt(document.getElementById('f-reach').value)||null,
+    dt:document.getElementById('f-dt').value||null,
+    l:document.getElementById('f-l').value,
+    c:document.getElementById('f-c').value,
+    ctype:document.getElementById('f-ctype').value,
+    cval:document.getElementById('f-cval').value,
+    del:document.getElementById('f-del').value,
+    addr:document.getElementById('f-addr').value,
+    v:null,sl:null
+  };
+  state.deals.push(deal);
+  save();
+  closeNew();
+  showToast('Сделка добавлена ✓');
+  ['f-b','f-s','f-reach','f-dt','f-l','f-c','f-cval','f-addr'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-del').value='';
+  document.getElementById('f-addr-wrap').style.display='none';
+  renderDash();renderDeals();
+}
+
+function openDet(id){
+  aDId=id;
+  const d=state.deals.find(x=>x.id===id);if(!d)return;
+  document.getElementById('det-name').textContent=d.b;
+  document.getElementById('det-plat').textContent=d.pl;
+  const cpvR=calcCPVReach(d);
+  const cpvV=calcCPVViews(d);
+  function cpvColor(v){return v?v<0.4?'var(--green)':v<0.8?'var(--amber)':'var(--red)':'var(--text3)';}
+
+  // Build contact HTML
+  const CINFO={tg:{icon:'📱',lbl:'Telegram',bg:'#E6F1FB'},wa:{icon:'💬',lbl:'WhatsApp',bg:'#E6F7F1'},ph:{icon:'📞',lbl:'Телефон',bg:'#FEF3C7'},em:{icon:'✉️',lbl:'Email',bg:'#F3F2EF'},sn:{icon:'🔗',lbl:'Соц. сеть',bg:'#EEF0FF'}};
+  const ci=d.ctype&&d.cval?CINFO[d.ctype]:null;
+  const contactsHTML=ci?`
+    <div class="sep"></div>
+    <div class="pfl">Контакт блогера</div>
+    <div class="contact-row"><div class="contact-icon" style="background:${ci.bg}">${ci.icon}</div><span class="contact-lbl">${ci.lbl}</span><span class="contact-val">${d.cval}</span></div>`:'';
+
+  // Delivery
+  const delHTML=d.del?`
+    <div class="sep"></div>
+    <div class="pfl">Доставка</div>
+    <div><span class="delivery-badge ${DEL_CLASS[d.del]||''}">${DEL_ICON[d.del]||''} ${DEL_LABELS[d.del]||''}</span></div>
+    ${d.addr?`<div style="font-size:13px;color:var(--text2);margin-top:6px">📍 ${d.addr}</div>`:''}`:'';
+
+  document.getElementById('det-body').innerHTML=`
+    <div class="pf"><div class="pfl">Статус</div><div>${bdg(d.st)}</div></div>
+    <div class="pf"><div class="pfl">Менеджер</div><div class="pfv">${d.m}</div></div>
+    <div class="pf"><div class="pfl">Продукт</div><div class="pfv">${d.pr}</div></div>
+    <div class="pf"><div class="pfl">Сумма</div><div class="pfv" style="font-size:18px;font-weight:700">${d.s?fR(d.s):'Бартер'}</div></div>
+    <div class="pf"><div class="pfl">Тип оплаты</div><div class="pfv">${d.py}</div></div>
+    ${d.dt?`<div class="pf"><div class="pfl">Дата выхода</div><div class="pfv">${d.dt.split('-').reverse().join('.')}</div></div>`:''}
+    ${d.l?`<div class="pf"><div class="pfl">Ссылка</div><div><a href="${d.l}" target="_blank" style="color:var(--blue);font-size:14px">Открыть профиль ↗</a></div></div>`:''}
+    ${contactsHTML}
+    ${delHTML}
+    <div class="sep"></div>
+    <div class="pf"><div class="pfl">Средний охват</div>
+      <input class="fc" style="height:40px" value="${d.reach||''}" placeholder="Введите охват" inputmode="numeric" onchange="upd(${id},'reach',+this.value||null)">
+    </div>
+    <div class="pf"><div class="pfl">CPV по охвату (сумма ÷ ср. охват)</div>
+      <div class="pfv" style="font-weight:700;font-size:18px;color:${cpvColor(cpvR)}">${cpvR?cpvR.toFixed(2)+' ₽':'—'}</div>
+    </div>
+    <div class="pf"><div class="pfl">Просмотры факт</div>
+      <input class="fc" style="height:40px" value="${d.v||''}" placeholder="Введите просмотры" inputmode="numeric" onchange="upd(${id},'v',+this.value||null)">
+    </div>
+    <div class="pf"><div class="pfl">CPV по просмотрам (сумма ÷ просмотры)</div>
+      <div class="pfv" style="font-weight:700;font-size:18px;color:${cpvColor(cpvV)}">${cpvV?cpvV.toFixed(2)+' ₽':'—'}</div>
+    </div>
+    ${d.c?`<div class="pf"><div class="pfl">Комментарий</div><div class="pfv" style="color:var(--text2);font-size:14px">${d.c}</div></div>`:''}
+    <div class="sep"></div>
+    <div class="pf"><div class="pfl">Изменить статус</div>
+      <select class="fc" style="height:44px" onchange="upd(${id},'st',this.value)">
+        ${['Поиск','Переговоры','Ожидает оплаты','Бартер','Оплачено','Размещено','Отказ'].map(s=>`<option${s===d.st?' selected':''}>${s}</option>`).join('')}
+      </select>
+    </div>`;
+
+  document.getElementById('det-ov').classList.add('open');
+  document.getElementById('det-dr').classList.add('open');
+}
+function closeDet(){document.getElementById('det-ov').classList.remove('open');document.getElementById('det-dr').classList.remove('open');aDId=null;}
+function upd(id,f,v){const d=state.deals.find(x=>x.id===id);if(d){d[f]=v;save();renderDash();renderDeals();showToast('Сохранено ✓');}}
+function deleteDeal(){if(!aDId||!confirm('Удалить сделку?'))return;state.deals=state.deals.filter(x=>x.id!==aDId);save();closeDet();renderDash();renderDeals();showToast('Удалено');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+renderDash();
+
+// ── SETTINGS ──────────────────────────────────────────
+const DEFAULTS = {
+  mgr:  ['Анна Ш.', 'Елизавета М.'],
+  prod: ['Лейка ароматическая', 'Набор + гель для душа', 'Гель для душа', 'Набор для умывания'],
+  plat: ['Instagram', 'Likee', 'TikTok', 'YouTube', 'Telegram', 'Несколько', 'Другое'],
+  pay:  ['Бартер', 'Счёт/самозанятый', 'Карта физлица', 'Расчётный счёт'],
+  del:  ['Заказ с OZON за 1 ₽', 'Заказ с WB за полную стоимость', 'Доставка по адресу (СДЭК)'],
+};
+function loadCfg(){try{const s=localStorage.getItem('settings_v1');return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULTS));}catch(e){return JSON.parse(JSON.stringify(DEFAULTS));}}
+function saveCfg(){try{localStorage.setItem('settings_v1',JSON.stringify(cfg));}catch(e){}}
+let cfg=loadCfg();
+
+function renderSettings(){
+  const map=[['mgr','s-mgr-list'],['prod','s-prod-list'],['plat','s-plat-list'],['pay','s-pay-list'],['del','s-del-list']];
+  map.forEach(([k,id])=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.innerHTML=cfg[k].map((v,j)=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:.5px solid var(--border)"><span style="font-size:14px">${v}</span><button onclick="sDel('${k}',${j})" style="color:var(--red);font-size:22px;line-height:1;padding:0 6px;background:none;border:none;cursor:pointer">×</button></div>`).join('')||'<div style="font-size:13px;color:var(--text3);padding:8px 0">Список пуст</div>';
+  });
+  refreshDropdowns();
+}
+function sAdd(key){
+  const ids={mgr:'s-mgr-input',prod:'s-prod-input',plat:'s-plat-input',pay:'s-pay-input',del:'s-del-input'};
+  const el=document.getElementById(ids[key]);
+  const val=el.value.trim();
+  if(!val){showToast('Введите значение');return;}
+  if(cfg[key].includes(val)){showToast('Уже есть в списке');return;}
+  cfg[key].push(val);saveCfg();el.value='';renderSettings();showToast('Добавлено ✓');
+}
+function sDel(key,idx){
+  if(cfg[key].length<=1){showToast('Нельзя удалить последний');return;}
+  cfg[key].splice(idx,1);saveCfg();renderSettings();showToast('Удалено');
+}
+function refreshDropdowns(){
+  [['f-m','mgr'],['f-pr','prod'],['f-pl','plat'],['f-py','pay']].forEach(([id,key])=>{
+    const el=document.getElementById(id);if(!el)return;
+    const v=el.value;el.innerHTML=cfg[key].map(x=>`<option>${x}</option>`).join('');
+    if(cfg[key].includes(v))el.value=v;
+  });
+  const fd=document.getElementById('f-del');
+  if(fd){const v=fd.value;fd.innerHTML='<option value="">— не выбрано —</option>'+cfg.del.map(x=>`<option value="${x}">${x}</option>`).join('');fd.value=v;}
+}
+function resetDeals(){
+  if(!confirm('Сбросить все сделки к демо-данным?'))return;
+  state.deals=JSON.parse(JSON.stringify(INIT_DEALS));save();renderDash();showToast('Сброшено к демо ✓');
+}
+const _origOpenNew=openNew;
+openNew=function(){refreshDropdowns();_origOpenNew();};
+
+// ── ИМПОРТ ИЗ EXCEL ───────────────────────────────────
+function importExcel(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const status = document.getElementById('import-status');
+  status.style.display = 'block';
+  status.style.color = 'var(--text3)';
+  status.textContent = '⏳ Читаю файл...';
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const wb = XLSX.read(e.target.result, {type:'array', cellDates:true});
+
+      let dealsAdded = 0, blogsAdded = 0;
+
+      // ── Лист «Сделки» ──
+      const dealsSheet = wb.Sheets['📋 Сделки'] || wb.Sheets['Сделки'] || wb.Sheets[Object.keys(wb.Sheets).find(n=>n.includes('Сделки'))];
+      if (dealsSheet) {
+        const rows = XLSX.utils.sheet_to_json(dealsSheet, {header:1, defval:''});
+        // row[0] = title, row[1] = headers, row[2]+ = data
+        // Cols: 0=№,1=Дата,2=Менеджер,3=Продукт,4=Блогер,5=Платформа,6=Ссылка,7=Подписчики,8=Сумма,9=ТипОплаты,10=ДатаОплаты,11=Статус,12=ДатаВыхода,13=ТипКонтента,14=Просмотры,15=Продажи,16=CPV,17=Комментарий
+        for (let i = 2; i < rows.length; i++) {
+          const r = rows[i];
+          if (!r[4] || String(r[4]).trim() === '') continue; // нет блогера — пропуск
+          const blogger = String(r[4]).trim();
+          // skip if already exists
+          if (state.deals.some(d => d.b.toLowerCase() === blogger.toLowerCase())) continue;
+
+          const sum = parseFloat(String(r[8]).replace(/[^\d.]/g,'')) || 0;
+          const views = parseFloat(String(r[14]).replace(/[^\d.]/g,'')) || null;
+          const subs = parseFloat(String(r[7]).replace(/[^\d.]/g,'')) || null;
+          const status = String(r[11]).trim() || 'Поиск';
+          const validStatuses = ['Поиск','Переговоры','Ожидает оплаты','Бартер','Оплачено','Размещено','Отказ'];
+
+          // format date
+          function fmtDate(v) {
+            if (!v) return null;
+            if (v instanceof Date) return v.toISOString().split('T')[0];
+            const s = String(v).trim();
+            if (!s) return null;
+            // DD.MM.YYYY
+            const m = s.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+            if (m) return `${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;
+            return null;
+          }
+
+          state.deals.push({
+            id: Date.now() + i,
+            b: blogger,
+            pl: String(r[5]).trim() || 'Другое',
+            m: String(r[2]).trim() || '',
+            pr: String(r[3]).trim() || '',
+            s: sum,
+            py: String(r[9]).trim() || 'Карта физлица',
+            st: validStatuses.includes(status) ? status : 'Поиск',
+            reach: subs,
+            v: views || null,
+            sl: parseFloat(String(r[15]).replace(/[^\d.]/g,'')) || null,
+            dt: fmtDate(r[12]) || fmtDate(r[10]) || null,
+            l: String(r[6]).trim() || '',
+            c: String(r[17]).trim() || '',
+            ctype: '', cval: '', del: '', addr: ''
+          });
+          dealsAdded++;
+        }
+      }
+
+      // ── Лист «База блогеров» ──
+      const blogSheet = wb.Sheets['📁 База блогеров'] || wb.Sheets['База блогеров'] || wb.Sheets[Object.keys(wb.Sheets).find(n=>n.includes('лог'))];
+      if (blogSheet) {
+        const rows = XLSX.utils.sheet_to_json(blogSheet, {header:1, defval:''});
+        // Cols: 0=Блогер,1=Платформа,2=Ссылка,3=Подписчики,4=СрОхват,5=ERR,6=CPV,7=Ниша,8=Менеджер,9=Размещений,10=СрПросмотры,11=Цена,12=Особенности,13=Контакт,14=Статус
+        for (let i = 2; i < rows.length; i++) {
+          const r = rows[i];
+          if (!r[0] || String(r[0]).trim() === '') continue;
+          const name = String(r[0]).trim();
+          if (state.blogs.some(b => b.n.toLowerCase() === name.toLowerCase())) continue;
+
+          const price = String(r[11]).trim() || '—';
+          const reach = parseFloat(String(r[4]).replace(/[^\d.]/g,'')) || null;
+          const subs = parseFloat(String(r[3]).replace(/[^\d.]/g,'')) || null;
+          const cpv = parseFloat(String(r[6]).replace(/[^\d.]/g,'')) || null;
+          const deals = parseInt(String(r[9])) || 0;
+
+          state.blogs.push({
+            n: name,
+            pl: String(r[1]).trim() || 'Другое',
+            sb: subs,
+            reach: reach,
+            cpv: cpv,
+            d: deals,
+            p: price,
+            c: String(r[12]).trim() || String(r[7]).trim() || ''
+          });
+          blogsAdded++;
+        }
+      }
+
+      save();
+      renderDash();
+      renderSettings();
+
+      status.style.color = 'var(--green)';
+      status.textContent = `✅ Импортировано: ${dealsAdded} сделок, ${blogsAdded} блогеров`;
+      input.value = '';
+      showToast(`Импорт завершён: +${dealsAdded} сделок, +${blogsAdded} блогеров`);
+
+    } catch(err) {
+      status.style.color = 'var(--red)';
+      status.textContent = '❌ Ошибка: ' + err.message;
+      console.error(err);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ── МЕСЯЦ ─────────────────────────────────────────────
+function getDealMonth(d) {
+  // priority: date of publication, else date of payment
+  const raw = d.dt || null;
+  if (!raw) return null;
+  // format: YYYY-MM-DD or DD.MM.YYYY
+  let y, m;
+  if (raw.includes('-')) { const p=raw.split('-'); y=p[0]; m=p[1]; }
+  else if (raw.includes('.')) { const p=raw.split('.'); y=p[2]; m=p[1]; }
+  else return null;
+  return `${y}-${m}`;
+}
+
+function getAvailableMonths() {
+  const set = new Set();
+  state.deals.forEach(d => { const m=getDealMonth(d); if(m) set.add(m); });
+  return [...set].sort().reverse(); // newest first
+}
+
+function mthLabel(ym) {
+  const [y, m] = ym.split('-');
+  return MONTHS_RU[parseInt(m)-1] + ' ' + y.slice(2);
+}
+
+function renderMonthPills(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const months = getAvailableMonths();
+  el.innerHTML = `<button class="pill ${activeMth==='all'?'on':''}" onclick="setMth('all')">Все</button>` +
+    months.map(m => `<button class="pill ${activeMth===m?'on':''}" onclick="setMth('${m}')">${mthLabel(m)}</button>`).join('');
+}
+
+function setMth(mth) {
+  activeMth = mth;
+  // sync both pill bars
+  ['month-pills','dash-month-pills'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.querySelectorAll('.pill').forEach(p => {
+      const pm = p.textContent.trim();
+      const isAll = pm === 'Все';
+      const isActive = isAll ? mth==='all' : (mth!=='all' && mthLabel(mth)===pm);
+      p.classList.toggle('on', isActive);
+    });
+  });
+  renderDash();
+  renderDeals();
+}
+
+function filterByMonth(deals) {
+  if (activeMth === 'all') return deals;
+  return deals.filter(d => getDealMonth(d) === activeMth);
+}
+
+// ── ПЕРЕМЕСТИТЬ В БАЗУ ────────────────────────────────
+function moveToBloggerBase() {
+  if (!aDId) return;
+  const d = state.deals.find(x => x.id === aDId);
+  if (!d) return;
+
+  // Show reason picker
+  const reasons = ['Дорого', 'Отказал сам', 'Не та аудитория', 'Плохой контент', 'Не отвечает', 'Другое'];
+  const reasonHtml = reasons.map(r =>
+    `<button onclick="confirmMoveToBase('${r}')" style="background:var(--surface2);border:.5px solid var(--border2);border-radius:var(--rsm);padding:10px 14px;font-size:14px;text-align:left;width:100%;margin-bottom:8px;cursor:pointer">${r}</button>`
+  ).join('');
+
+  document.getElementById('det-body').innerHTML = `
+    <div style="margin-bottom:16px">
+      <div style="font-size:15px;font-weight:600;margin-bottom:6px">Переместить в базу блогеров</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px">Блогер <b>${d.b}</b> будет добавлен в базу. Сделка будет удалена из списка и бюджета.</div>
+      <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Причина</div>
+      ${reasonHtml}
+      <button onclick="openDet(${aDId})" style="background:none;border:.5px solid var(--border2);color:var(--text2);border-radius:var(--rsm);padding:10px;font-size:14px;width:100%;cursor:pointer;margin-top:4px">Отмена</button>
+    </div>`;
+}
+
+function confirmMoveToBase(reason) {
+  if (!aDId) return;
+  const d = state.deals.find(x => x.id === aDId);
+  if (!d) return;
+
+  // Add to bloggers base if not already there
+  const exists = state.blogs.some(b => b.n.toLowerCase() === d.b.toLowerCase());
+  if (!exists) {
+    state.blogs.push({
+      n: d.b,
+      pl: d.pl,
+      sb: d.reach || null,
+      reach: d.reach || null,
+      cpv: null,
+      d: 0,
+      p: d.s ? fR(d.s) : '—',
+      c: d.c || '',
+      reason: reason
+    });
+  } else {
+    // Update reason if already in base
+    const b = state.blogs.find(x => x.n.toLowerCase() === d.b.toLowerCase());
+    if (b) b.reason = reason;
+  }
+
+  // Remove from deals
+  state.deals = state.deals.filter(x => x.id !== aDId);
+  save();
+  closeDet();
+  renderDash();
+  renderDeals();
+  renderBloggers();
+  showToast(`${d.b} → База блогеров (${reason})`);
+}
+
+// Auto-move to base when status set to Отказ
+const _origUpd = upd;
+upd = function(id, f, v) {
+  _origUpd(id, f, v);
+  if (f === 'st' && v === 'Отказ') {
+    aDId = id;
+    moveToBloggerBase();
+  }
+};
+
+// Swipe down to close drawers
+function addSwipeClose(drawerId, closeFn) {
+  const el = document.getElementById(drawerId);
+  let startY = 0, startT = 0;
+  el.addEventListener('touchstart', e => { startY = e.touches[0].clientY; startT = Date.now(); }, {passive:true});
+  el.addEventListener('touchend', e => {
+    const dy = e.changedTouches[0].clientY - startY;
+    const dt = Date.now() - startT;
+    if (dy > 60 && dt < 400) closeFn();
+  }, {passive:true});
+}
+addSwipeClose('new-dr', closeNew);
+addSwipeClose('det-dr', closeDet);
+</script>
+</body>
+</html>
